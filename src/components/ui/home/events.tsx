@@ -1,7 +1,5 @@
 "use client";
-import { useState } from "react";
 import { Card } from "../card";
-import Script from "next/script";
 
 function Events() {
   return (
