@@ -73,7 +73,7 @@ function Weather() {
 
   useEffect(() => {
     if (position.latitude && position.longitude) {
-      fetchCurrentWeather(position.latitude, position.longitude, true).then(
+      fetchCurrentWeather(position.latitude, position.longitude).then(
         (data) => {
           setWeather(data);
         }

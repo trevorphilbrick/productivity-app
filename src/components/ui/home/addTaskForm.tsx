@@ -1,6 +1,5 @@
 "use client";
 import {
-  Sheet,
   SheetContent,
   SheetDescription,
   SheetHeader,
@@ -27,14 +26,11 @@ import {
 import { Button } from "@/components/ui/button";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  ControllerFieldState,
-  ControllerRenderProps,
-  FieldValues,
-  UseFormStateReturn,
-  useForm,
-} from "react-hook-form";
+import { ControllerRenderProps, FieldValues, useForm } from "react-hook-form";
 import { ReactElement, JSXElementConstructor } from "react";
+import { addTask } from "@/lib/data";
+import { TaskContext } from "@/app/home/page";
+import { useContext } from "react";
 
 const formSchema = z.object({
   title: z.string().min(2).max(50),
@@ -44,6 +40,7 @@ const formSchema = z.object({
 });
 
 function AddTaskForm() {
+  const { setTasks } = useContext(TaskContext);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -55,7 +52,10 @@ function AddTaskForm() {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+    addTask(values).then((res) => {
+      setTasks(res.tasks.rows);
+      form.reset();
+    });
   }
 
   return (
