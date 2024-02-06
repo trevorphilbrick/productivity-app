@@ -5,7 +5,9 @@ const isDev = false;
 
 const weatherKey = "0a9a7d8f966513e6cfe48f5a1240b915";
 
-const base_url = isDev ? "http://localhost:3000" : "add production url here";
+const base_url = isDev
+  ? "http://localhost:3000"
+  : "productivity-app-six.vercel.app";
 
 export const fetchCurrentWeather = async (
   lat: number,
