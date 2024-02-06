@@ -5,7 +5,7 @@ import { RxChevronDown, RxChevronUp } from "react-icons/rx";
 import { RxCross2 } from "react-icons/rx";
 import ProgressPill from "./progressPill";
 import { deleteTask } from "@/lib/data";
-import { TaskContext } from "@/app/home/page";
+import { TaskContext } from "@/context/taskContext";
 
 function TaskCard({
   task,

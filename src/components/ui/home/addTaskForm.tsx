@@ -29,7 +29,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { ControllerRenderProps, FieldValues, useForm } from "react-hook-form";
 import { ReactElement, JSXElementConstructor } from "react";
 import { addTask } from "@/lib/data";
-import { TaskContext } from "@/app/home/page";
+import { TaskContext } from "@/context/taskContext";
 import { useContext } from "react";
 
 const formSchema = z.object({
