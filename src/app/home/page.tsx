@@ -18,7 +18,6 @@ function Page() {
 
   useEffect(() => {
     fetchTasks().then((data) => {
-      console.log(data);
       setTasks(data.tasks.rows);
     });
   }, []);
