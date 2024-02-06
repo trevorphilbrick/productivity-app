@@ -1,7 +1,7 @@
 import axios from "axios";
 import { mockCurrentWeatherData } from "./mockData";
 
-const isDev = true;
+const isDev = false;
 
 const weatherKey = "0a9a7d8f966513e6cfe48f5a1240b915";
 
