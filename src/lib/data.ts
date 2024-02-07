@@ -1,13 +1,8 @@
-import axios from "axios";
 import { mockCurrentWeatherData } from "./mockData";
 
-const isDev = false;
+const weatherKey = process.env.NEXT_PUBLIC_WEATHER_API_KEY;
 
-const weatherKey = "0a9a7d8f966513e6cfe48f5a1240b915";
-
-const base_url = isDev
-  ? "http://localhost:3000"
-  : "https://productivity-app-six.vercel.app";
+const base_url = "https://productivity-app-six.vercel.app";
 export const fetchCurrentWeather = async (
   lat: number,
   long: number,
