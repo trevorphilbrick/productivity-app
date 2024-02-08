@@ -8,13 +8,6 @@ export async function GET(request: Request) {
   const status = searchParams.get("status");
   const priority = searchParams.get("priority");
   const user_id = searchParams.get("user_id");
-  console.log("payload in get function", {
-    title,
-    description,
-    status,
-    priority,
-    user_id,
-  });
 
   try {
     if (!title || !description || !status || !priority || !user_id)

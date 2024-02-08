@@ -81,10 +81,6 @@ function Weather() {
     }
   }, [position]);
 
-  useEffect(() => {
-    console.log(weather);
-  }, [weather]);
-
   return (
     <Card className="md:w-64">
       <h1 className="text-center my-4 font-semibold text-lg">Weather</h1>

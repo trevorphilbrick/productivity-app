@@ -40,7 +40,6 @@ export const fetchTasks = async (user_id: string) => {
 
 export const addTask = async (task: any) => {
   const { title, description, status, priority, user_id } = task;
-  console.log(task, "task sent to addTask function");
 
   const data = await fetch(
     `${base_url}/api/add-todo?title=${encodeURIComponent(

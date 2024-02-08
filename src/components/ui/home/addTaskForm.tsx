@@ -56,7 +56,6 @@ function AddTaskForm() {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
     addTask(values).then((res) => {
       setTasks(res.tasks.rows);
       form.reset();
