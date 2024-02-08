@@ -1,14 +1,21 @@
 "use client";
-import { useEffect, useState } from "react";
-import TaskCard from "@/components/ui/home/taskCard";
 import { RxPlus } from "react-icons/rx";
 import { SheetTrigger } from "@/components/ui/sheet";
 import { Sheet } from "@/components/ui/sheet";
 import AddTaskForm from "@/components/ui/home/addTaskForm";
 import TaskProvider from "@/context/taskContext";
 import TaskList from "@/components/ui/home/taskList";
+import { useSession } from "next-auth/react";
 
 function Page() {
+  const { data: session } = useSession();
+  if (!session) {
+    return (
+      <div>
+        <h1>You need to sign in to view this page</h1>
+      </div>
+    );
+  }
   return (
     <TaskProvider>
       <Sheet>

@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 export default function Home() {
   return (
     <main className="flex flex-col items-center text-wrap">
-      <nav className="w-full bg-blue-300 mb-8">Navigation</nav>
       <div className="flex flex-col md:flex-row w-full md:mx-8 max-w-screen-xl px-4 ">
         <div className=" mb-4 md:w-96 md:mb-0 ">
           <h1 className=" text-5xl md:text-6xl mb-4">
