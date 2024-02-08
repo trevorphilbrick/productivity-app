@@ -26,7 +26,7 @@ export const fetchCurrentWeather = async (
 };
 
 export const fetchTasks = async (user_id: string) => {
-  const data = await fetch(`${base_url}/api/get-todos?user_id=${user_id}`, {
+  const data = await fetch(`${base_url}/api/get-todos?userId=${user_id}`, {
     method: "GET",
     cache: "no-cache",
     next: {
@@ -40,6 +40,7 @@ export const fetchTasks = async (user_id: string) => {
 
 export const addTask = async (task: any) => {
   const { title, description, status, priority, user_id } = task;
+  console.log(task, "task sent to addTask function");
 
   const data = await fetch(
     `${base_url}/api/add-todo?title=${encodeURIComponent(

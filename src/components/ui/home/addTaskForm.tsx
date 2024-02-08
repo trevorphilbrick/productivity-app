@@ -31,15 +31,18 @@ import { ReactElement, JSXElementConstructor } from "react";
 import { addTask } from "@/lib/data";
 import { TaskContext } from "@/context/taskContext";
 import { useContext } from "react";
+import { useSession } from "next-auth/react";
 
 const formSchema = z.object({
   title: z.string().min(2).max(50),
   description: z.string().min(2).max(500),
   priority: z.enum(["low", "medium", "high"]),
   status: z.enum(["Pending", "In Progress", "Completed"]),
+  user_id: z.string(),
 });
 
 function AddTaskForm() {
+  const { data: session } = useSession();
   const { setTasks } = useContext(TaskContext);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -48,10 +51,12 @@ function AddTaskForm() {
       description: "",
       priority: "low",
       status: "Pending",
+      user_id: session?.user?.name || "",
     },
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
+    console.log(values);
     addTask(values).then((res) => {
       setTasks(res.tasks.rows);
       form.reset();
