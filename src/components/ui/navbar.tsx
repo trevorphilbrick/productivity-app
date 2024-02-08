@@ -11,7 +11,7 @@ function Navbar() {
         <Link href="/">
           <p className="text-xl font-bold mr-4">Productivity</p>
         </Link>
-        <Link href="/home">
+        <Link href="/dashboard">
           <p className="">Dashboard</p>
         </Link>
       </div>
