@@ -46,7 +46,9 @@ function TaskCard({
           </button>
         </div>
       </div>
-      {isExpanded && <p>{task.description}</p>}
+      {isExpanded && (
+        <p className="text-sm text-slate-600">{task.description}</p>
+      )}
     </Card>
   );
 }

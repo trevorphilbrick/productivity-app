@@ -15,7 +15,8 @@ function TaskList() {
   }
 
   useEffect(() => {
-    fetchTasks(session?.user?.name || "").then((data) => {
+    if (!session?.user?.name) return; // handle no user
+    fetchTasks(session?.user?.name).then((data) => {
       setTasks(data.tasks.rows);
     });
   }, []);

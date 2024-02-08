@@ -12,6 +12,7 @@ import React from "react";
 import { RxPlus } from "react-icons/rx";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
+import TaskList from "@/components/ui/home/taskList";
 
 function Page() {
   const { data: session } = useSession();
@@ -22,7 +23,7 @@ function Page() {
   return (
     <QuicklinkProvider>
       <Sheet>
-        <div className="flex justify-between items-center">
+        <div className="flex  px-4 justify-between items-center w-screen md:w-auto ">
           <h1 className="font-semibold text-lg mb-4">Quicklinks</h1>
           <SheetTrigger className="flex items-center text-sm">
             add

@@ -8,11 +8,18 @@ export async function GET(request: Request) {
   const status = searchParams.get("status");
   const priority = searchParams.get("priority");
   const user_id = searchParams.get("user_id");
+  console.log("payload in get function", {
+    title,
+    description,
+    status,
+    priority,
+    user_id,
+  });
 
   try {
     if (!title || !description || !status || !priority || !user_id)
       throw new Error("Missing required fields.");
-    await sql`INSERT INTO todos (Title, Description, Status, Priority, User_id) VALUES (${title}, ${description}, ${status}, ${priority}, ${user_id});`;
+    await sql`INSERT INTO todos (Title, Description, Status, Priority, UserId) VALUES (${title}, ${description}, ${status}, ${priority}, ${user_id});`;
   } catch (error) {
     return NextResponse.json({ error }, { status: 500 });
   }
