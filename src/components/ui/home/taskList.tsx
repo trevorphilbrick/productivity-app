@@ -3,12 +3,19 @@ import TaskCard from "./taskCard";
 import { fetchTasks } from "@/lib/data";
 import { useEffect, useContext } from "react";
 import { TaskContext } from "@/context/taskContext";
+import { useSession } from "next-auth/react";
+import { redirect } from "next/navigation";
 
 function TaskList() {
+  const { data: session } = useSession();
   const { tasks, setTasks } = useContext(TaskContext);
 
+  if (!session) {
+    redirect("/api/auth/signin");
+  }
+
   useEffect(() => {
-    fetchTasks().then((data) => {
+    fetchTasks(session?.user?.name || "").then((data) => {
       setTasks(data.tasks.rows);
     });
   }, []);

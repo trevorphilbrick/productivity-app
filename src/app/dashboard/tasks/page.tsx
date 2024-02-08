@@ -5,17 +5,8 @@ import { Sheet } from "@/components/ui/sheet";
 import AddTaskForm from "@/components/ui/home/addTaskForm";
 import TaskProvider from "@/context/taskContext";
 import TaskList from "@/components/ui/home/taskList";
-import { useSession } from "next-auth/react";
 
 function Page() {
-  const { data: session } = useSession();
-  if (!session) {
-    return (
-      <div>
-        <h1>You need to sign in to view this page</h1>
-      </div>
-    );
-  }
   return (
     <TaskProvider>
       <Sheet>
