@@ -24,7 +24,7 @@ function TaskCard({
   return (
     <Card key={key} className="mb-2 py-2 px-4">
       <div className="flex justify-between">
-        <h1>{task.title}</h1>
+        <h1 className="mr-2 line-clamp-1 text-ellipses">{task.title}</h1>
         <div className="flex">
           <ProgressPill status={task.status} />
           <button
