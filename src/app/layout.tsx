@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Script from "next/script";
-
+import { getServerSession } from "next-auth";
+import SessionProvider from "@/components/sessionProvider";
+import SignInOutButton from "@/components/ui/signInOutButton";
+import Navbar from "@/components/ui/navbar";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -10,14 +12,23 @@ export const metadata: Metadata = {
   description: "An app meant to increase productivity.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await getServerSession();
+
+  console.log(session);
+
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <SessionProvider session={session}>
+          <Navbar />
+          {children}
+        </SessionProvider>
+      </body>
     </html>
   );
 }
