@@ -1,18 +1,11 @@
 "use client";
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
+import { Sheet, SheetTrigger } from "@/components/ui/sheet";
 import QuicklinkProvider from "@/context/quicklinksContext";
-import React from "react";
 import { RxPlus } from "react-icons/rx";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
-import TaskList from "@/components/ui/home/taskList";
+import AddQuicklinkForm from "@/components/ui/home/addQuicklinkForm";
+import QuicklinksList from "@/components/ui/home/quicklinksList";
 
 function Page() {
   const { data: session } = useSession();
@@ -30,14 +23,8 @@ function Page() {
             <RxPlus className="ml-1" />
           </SheetTrigger>
         </div>
-        <SheetContent className="w-[400px] sm:w-[540px]">
-          <SheetHeader>
-            <SheetTitle>Add A Link</SheetTitle>
-            <SheetDescription>
-              Fill out the form below to add a quicklink
-            </SheetDescription>
-          </SheetHeader>
-        </SheetContent>
+        <QuicklinksList />
+        <AddQuicklinkForm />
       </Sheet>
     </QuicklinkProvider>
   );

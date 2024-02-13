@@ -22,7 +22,7 @@ function TaskCard({
   const { setTasks } = useContext(TaskContext);
   const [isExpanded, setIsExpanded] = useState(false);
   return (
-    <Card key={key} className="mb-2 py-2 px-4">
+    <Card key={key} className="mb-2 py-2 px-4 mx-4">
       <div className="flex justify-between">
         <h1 className="mr-2 line-clamp-1 text-ellipses">{task.title}</h1>
         <div className="flex">
