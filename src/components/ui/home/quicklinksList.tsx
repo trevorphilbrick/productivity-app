@@ -1,9 +1,8 @@
 "use client";
 import { useContext, useEffect } from "react";
 import { QuicklinkContext } from "@/context/quicklinksContext";
-import { fetchQuicklinks } from "@/lib/data";
+import { fetchQuicklinks, deleteQuicklink } from "@/lib/data";
 import { useSession } from "next-auth/react";
-import { Card } from "../card";
 import QuicklinkCard from "./quicklinkCard";
 
 function QuicklinksList() {
@@ -22,10 +21,20 @@ function QuicklinksList() {
     console.log("quicklinks", quicklinks);
   }, [quicklinks]);
 
+  const onDelete = (id: number) => {
+    deleteQuicklink(id).then((data) => {
+      setQuicklinks(data.quicklinks.rows);
+    });
+  };
+
   return (
-    <div className="flex">
+    <div className="flex flex-wrap mx-4">
       {quicklinks.map((quicklink) => (
-        <QuicklinkCard quicklink={quicklink} key={quicklink.id} />
+        <QuicklinkCard
+          quicklink={quicklink}
+          key={quicklink.id}
+          onDelete={onDelete}
+        />
       ))}
     </div>
   );
