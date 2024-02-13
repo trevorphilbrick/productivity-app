@@ -16,7 +16,9 @@ function Navbar() {
         </Link>
       </div>
       <div className="flex items-center">
-        {session && <p className="mr-2">{session.user?.name}</p>}
+        {session && (
+          <p className="mr-2 hidden md:inline">{session.user?.name}</p>
+        )}
         <SignInOutButton />
       </div>
     </nav>
