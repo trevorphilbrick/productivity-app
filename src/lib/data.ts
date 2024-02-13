@@ -109,3 +109,15 @@ export const fetchQuicklinks = async (user_id: string) => {
   });
   return data;
 };
+
+export const deleteQuicklink = async (id: number) => {
+  const data = await fetch(`${base_url}/api/delete-link?id=${id}`, {
+    cache: "no-cache",
+    next: {
+      revalidate: 0,
+    },
+  }).then((response) => {
+    return response.json();
+  });
+  return data;
+};

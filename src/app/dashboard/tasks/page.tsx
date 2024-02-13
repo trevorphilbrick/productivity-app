@@ -17,7 +17,7 @@ function Page() {
             <RxPlus className="ml-1" />
           </SheetTrigger>
         </div>
-        <div className="bg-slate-400 h-6">
+        <div>
           <TaskList />
         </div>
         <AddTaskForm />

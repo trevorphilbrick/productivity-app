@@ -1,23 +1,31 @@
 "use client";
 import { Quicklink } from "@/lib/types";
 import { Card } from "../card";
+import { RxExternalLink, RxCross2 } from "react-icons/rx";
 
-function QuicklinkCard({ quicklink }: { quicklink: Quicklink }) {
-  const getFaviconData = async (url: string) => {
-    const domain = url.replace("https://", "").replace("http://", "");
-    const data = await fetch(
-      `https://www.google.com/s2/favicons?domain=${domain}`
-    ).then((res) => console.log(res));
-  };
-
-  getFaviconData("github.com");
-
+function QuicklinkCard({
+  quicklink,
+  onDelete,
+}: {
+  quicklink: Quicklink;
+  onDelete: (id: number) => void;
+}) {
   return (
-    <a href={quicklink.linkurl}>
-      <Card className="max-w-48 p-4 mr-2 ">
+    <Card className="  mr-2 mb-2 flex items-center">
+      <a
+        href={quicklink.linkurl}
+        target="_blank"
+        className="py-2 pl-4 flex items-center"
+      >
+        <RxExternalLink className="mr-2" />
         <p>{quicklink.linktitle}</p>
-      </Card>
-    </a>
+      </a>
+
+      <RxCross2
+        className=" ml-4 mr-2 my-2 "
+        onClick={() => onDelete(quicklink.id)}
+      />
+    </Card>
   );
 }
 
