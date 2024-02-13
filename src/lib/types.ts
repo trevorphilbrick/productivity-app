@@ -7,8 +7,8 @@ export type Todo = {
 };
 
 export type Quicklink = {
-  linkTitle: string;
-  linkUrl: string;
+  linktitle: string;
+  linkurl: string;
   id: number;
 };
 
@@ -18,6 +18,6 @@ export type MyContextType = {
 };
 
 export type QuicklinkContextType = {
-  tasks: Quicklink[]; // Adjust the type according to your state's structure
-  setTasks: React.Dispatch<React.SetStateAction<Quicklink[]>>; // This matches the signature of the setState function provided by useState
+  quicklinks: Quicklink[]; // Adjust the type according to your state's structure
+  setQuicklinks: React.Dispatch<React.SetStateAction<Quicklink[]>>; // This matches the signature of the setState function provided by useState
 };

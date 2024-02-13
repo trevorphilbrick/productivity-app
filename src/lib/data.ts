@@ -72,3 +72,40 @@ export const deleteTask = async (id: number) => {
   });
   return data;
 };
+
+export const addQuicklink = async (quicklink: any) => {
+  const { linkTitle: title, linkUrl, user_id: userId } = quicklink;
+
+  console.log("api call obj", { title, linkUrl, userId });
+
+  const data = await fetch(
+    `${base_url}/api/add-link?title=${encodeURIComponent(
+      title
+    )}&linkUrl=${encodeURIComponent(linkUrl)}&userId=${encodeURIComponent(
+      userId
+    )}`,
+    {
+      cache: "no-cache",
+      next: {
+        revalidate: 0,
+      },
+    }
+  ).then((response) => {
+    return response.json();
+  });
+  return data;
+};
+
+export const fetchQuicklinks = async (user_id: string) => {
+  console.log(user_id);
+  const data = await fetch(`${base_url}/api/get-links?userId=${user_id}`, {
+    method: "GET",
+    cache: "no-cache",
+    next: {
+      revalidate: 0,
+    },
+  }).then((response) => {
+    return response.json();
+  });
+  return data;
+};

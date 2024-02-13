@@ -1,9 +1,9 @@
 import { useState, createContext } from "react";
-import { Todo, QuicklinkContextType, Quicklink } from "@/lib/types";
+import { QuicklinkContextType, Quicklink } from "@/lib/types";
 
 export const QuicklinkContext = createContext<QuicklinkContextType>({
-  tasks: [],
-  setTasks: () => {},
+  quicklinks: [],
+  setQuicklinks: () => {},
 });
 
 export default function QuicklinkProvider({
@@ -11,9 +11,9 @@ export default function QuicklinkProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const [tasks, setTasks] = useState<Quicklink[]>([]);
+  const [quicklinks, setQuicklinks] = useState<Quicklink[]>([]);
   return (
-    <QuicklinkContext.Provider value={{ tasks, setTasks }}>
+    <QuicklinkContext.Provider value={{ quicklinks, setQuicklinks }}>
       {children}
     </QuicklinkContext.Provider>
   );
