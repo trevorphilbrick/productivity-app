@@ -1,8 +1,6 @@
 "use client";
 import { Quicklink } from "@/lib/types";
 import { Card } from "../card";
-import { Avatar, AvatarImage, AvatarFallback } from "../avatar";
-import { getFavicons } from "get-website-favicon";
 
 function QuicklinkCard({ quicklink }: { quicklink: Quicklink }) {
   const getFaviconData = async (url: string) => {
