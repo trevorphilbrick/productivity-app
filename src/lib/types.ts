@@ -3,7 +3,7 @@ export type Todo = {
   description: string;
   status: "Pending" | "In Progress" | "Completed";
   id: number;
-  priority: "Low" | "Medium" | "High";
+  priority: "low" | "medium" | "high";
 };
 
 export type Quicklink = {

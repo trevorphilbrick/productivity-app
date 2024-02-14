@@ -30,7 +30,7 @@ import { ControllerRenderProps, FieldValues, useForm } from "react-hook-form";
 import { ReactElement, JSXElementConstructor } from "react";
 import { addTask } from "@/lib/data";
 import { TaskContext } from "@/context/taskContext";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useSession } from "next-auth/react";
 
 const formSchema = z.object({
@@ -43,6 +43,7 @@ const formSchema = z.object({
 
 function AddTaskForm() {
   const { data: session } = useSession();
+  const [isActive, setIsActive] = useState(true);
   const { setTasks } = useContext(TaskContext);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -55,11 +56,13 @@ function AddTaskForm() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    addTask(values).then((res) => {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    setIsActive(false);
+    await addTask(values).then((res) => {
       setTasks(res.tasks.rows);
-      form.reset();
+      setIsActive(true);
     });
+    form.reset();
   }
 
   return (
@@ -138,7 +141,7 @@ function AddTaskForm() {
               }}
             />
 
-            <Button type="submit" className="mt-5">
+            <Button disabled={!isActive} type="submit" className="mt-5">
               Save
             </Button>
           </form>

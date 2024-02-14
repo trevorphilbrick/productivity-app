@@ -15,10 +15,12 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { z } from "zod";
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useSession } from "next-auth/react";
 import { addQuicklink } from "@/lib/data";
+import { QuicklinkContext } from "@/context/quicklinksContext";
+import { useContext, useState } from "react";
 
 const formSchema = z.object({
   linkTitle: z.string().min(2).max(255),
@@ -28,6 +30,8 @@ const formSchema = z.object({
 
 function AddQuicklinkForm() {
   const { data: session } = useSession();
+  const { setQuicklinks } = useContext(QuicklinkContext);
+  const [isActive, setIsActive] = useState(true);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -38,11 +42,13 @@ function AddQuicklinkForm() {
     },
   });
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log("form values", values);
-    addQuicklink(values).then((data) => {
-      console.log("data", data);
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    setIsActive(false);
+    await addQuicklink(values).then((data) => {
+      setQuicklinks(data.quicklinks.rows);
+      setIsActive(true);
     });
+    form.reset();
   };
 
   return (
@@ -77,7 +83,7 @@ function AddQuicklinkForm() {
               </FormItem>
             )}
           />
-          <Button type="submit" className="mt-5">
+          <Button disabled={!isActive} type="submit" className="mt-5">
             Save
           </Button>
         </form>

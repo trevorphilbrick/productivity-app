@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import blackMobile from "../../public/mobile-black.png";
+import blackDesktop from "../../public/3-devices-black.png";
 
 export default function Home() {
   return (
@@ -16,7 +18,12 @@ export default function Home() {
           </p>
           <Button className="w-full">Join Now</Button>
         </div>
-        <div className=" flex-1">IMAGE</div>
+        <Image src={blackMobile} alt="black mobile" className="md:hidden" />
+        <Image
+          src={blackDesktop}
+          alt="black desktop"
+          className="hidden md:block"
+        />
       </div>
     </main>
   );

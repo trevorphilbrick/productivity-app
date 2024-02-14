@@ -12,7 +12,9 @@ function ProgressPill({ status }: { status: string }) {
     }
   };
   return (
-    <div className={`${color()} text-xs px-2 py-1 rounded-full mr-2`}>
+    <div
+      className={`${color()} text-xs px-2 py-1 rounded-full mr-2 dark:text-slate-700`}
+    >
       {status}
     </div>
   );
