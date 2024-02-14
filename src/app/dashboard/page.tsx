@@ -7,7 +7,7 @@ async function Page() {
   if (!session) {
     redirect("/api/auth/signin");
   }
-  return <div>DASHBOARD</div>;
+  redirect("/dashboard/tasks");
 }
 
 export default Page;

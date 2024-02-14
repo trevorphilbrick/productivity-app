@@ -11,7 +11,7 @@ function QuicklinkCard({
   onDelete: (id: number) => void;
 }) {
   return (
-    <Card className="  mr-2 mb-2 flex items-center">
+    <Card className=" mr-2 mb-2 flex items-center">
       <a
         href={quicklink.linkurl}
         target="_blank"
@@ -20,7 +20,6 @@ function QuicklinkCard({
         <RxExternalLink className="mr-2" />
         <p>{quicklink.linktitle}</p>
       </a>
-
       <RxCross2
         className=" ml-4 mr-2 my-2 "
         onClick={() => onDelete(quicklink.id)}

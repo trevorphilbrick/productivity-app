@@ -1,8 +1,27 @@
 import Weather from "@/components/ui/home/weather";
 import Events from "@/components/ui/home/events";
 import { flags } from "@/lib/flags";
-import { Card } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
+import { RxCheckCircled, RxPaperPlane, RxPencil2 } from "react-icons/rx";
+
+const dashboardData = [
+  {
+    title: "Tasks",
+    link: "/dashboard/tasks",
+    iconComponent: <RxCheckCircled />,
+  },
+  {
+    title: "Quick-links",
+    link: "/dashboard/quicklinks",
+    iconComponent: <RxPaperPlane />,
+  },
+  {
+    title: "Notes",
+    link: "/dashboard/notes",
+    iconComponent: <RxPencil2 />,
+  },
+];
 
 function layout({
   children,
@@ -13,18 +32,22 @@ function layout({
     <div className="w-screen  md:flex md:flex-col md:items-center ">
       <div className="flex flex-col items-center md:items-start md:flex-row md:w-11/12 lg:4/5 max-w-6xl mt-6">
         {flags.shouldShowEvents && <Events />}
-        <div className="flex flex-col w-full px-4  md:w-64">
-          <h1 className="mb-4 font-bold text-xl">Dashboard</h1>
+        <div className="flex flex-col w-full px-4 md:w-64">
+          <h1 className="mb-4 font-bold text-2xl text-cyan-500">Dashboard</h1>
           <nav className="flex flex-col">
-            <Link href="/dashboard/tasks">
-              <Card className=" p-3 mb-2">Tasks</Card>
-            </Link>
-            <Link href="/dashboard/quicklinks">
-              <Card className=" p-3 mb-2 ">Quick-links</Card>
-            </Link>
-            <Link href="/dashboard/notes">
-              <Card className=" p-3 mb-2 ">Notes</Card>
-            </Link>
+            {dashboardData.map((item) => (
+              <Link
+                key={item.title}
+                href={item.link}
+                className="hover:bg-gray-100"
+              >
+                <div className="flex items-center py-4 px-4 ">
+                  {item.iconComponent}
+                  <p className="  ml-2">{item.title}</p>
+                </div>
+                <Separator />
+              </Link>
+            ))}
           </nav>
         </div>
         <div className="flex-1 px-4">{children}</div>
