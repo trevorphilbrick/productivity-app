@@ -28,17 +28,19 @@ function TaskCard({
   const { setTasks } = useContext(TaskContext);
   const [isExpanded, setIsExpanded] = useState(false);
 
+  const priorityStyles="mr-4"
+
   const renderPriority = (priority: string) => {
     console.log(priority);
     switch (priority) {
       case "low":
-        return <FcLowPriority />;
+        return <FcLowPriority className={priorityStyles}/>;
       case "medium":
-        return <FcMediumPriority />;
+        return <FcMediumPriority className={priorityStyles}/>;
       case "high":
-        return <FcHighPriority />;
+        return <FcHighPriority className={priorityStyles} />;
       default:
-        return <FcLowPriority />;
+        return <FcLowPriority className={priorityStyles} />;
     }
   };
   return (
