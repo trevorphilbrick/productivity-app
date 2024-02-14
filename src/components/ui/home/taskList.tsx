@@ -34,6 +34,7 @@ function TaskList() {
               title: string;
               description: string;
               status: "Pending" | "In Progress" | "Completed";
+              priority: "low" | "medium" | "high";
               id: number;
             },
             index: number

@@ -6,6 +6,11 @@ import { RxCross2 } from "react-icons/rx";
 import ProgressPill from "./progressPill";
 import { deleteTask } from "@/lib/data";
 import { TaskContext } from "@/context/taskContext";
+import {
+  FcHighPriority,
+  FcLowPriority,
+  FcMediumPriority,
+} from "react-icons/fc";
 
 function TaskCard({
   task,
@@ -15,16 +20,34 @@ function TaskCard({
     title: string;
     description: string;
     status: "Pending" | "In Progress" | "Completed";
+    priority: "low" | "medium" | "high";
     id: number;
   };
   key: number;
 }) {
   const { setTasks } = useContext(TaskContext);
   const [isExpanded, setIsExpanded] = useState(false);
+
+  const renderPriority = (priority: string) => {
+    console.log(priority);
+    switch (priority) {
+      case "low":
+        return <FcLowPriority />;
+      case "medium":
+        return <FcMediumPriority />;
+      case "high":
+        return <FcHighPriority />;
+      default:
+        return <FcLowPriority />;
+    }
+  };
   return (
     <Card key={key} className="mb-2 py-2 px-4 mx-4">
       <div className="flex justify-between">
-        <h1 className="mr-2 line-clamp-1 text-ellipses">{task.title}</h1>
+        <div className="flex items-center">
+          <h1 className="mr-2 line-clamp-1 text-ellipses">{task.title}</h1>
+          {renderPriority(task.priority)}
+        </div>
         <div className="flex">
           <ProgressPill status={task.status} />
           <button
