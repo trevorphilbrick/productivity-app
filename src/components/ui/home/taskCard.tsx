@@ -11,6 +11,7 @@ import {
   FcLowPriority,
   FcMediumPriority,
 } from "react-icons/fc";
+import { Popover, PopoverContent, PopoverTrigger } from "../popover";
 
 function TaskCard({
   task,
@@ -28,15 +29,15 @@ function TaskCard({
   const { setTasks } = useContext(TaskContext);
   const [isExpanded, setIsExpanded] = useState(false);
 
-  const priorityStyles="mr-4"
+  const priorityStyles = "mr-4";
 
   const renderPriority = (priority: string) => {
     console.log(priority);
     switch (priority) {
       case "low":
-        return <FcLowPriority className={priorityStyles}/>;
+        return <FcLowPriority className={priorityStyles} />;
       case "medium":
-        return <FcMediumPriority className={priorityStyles}/>;
+        return <FcMediumPriority className={priorityStyles} />;
       case "high":
         return <FcHighPriority className={priorityStyles} />;
       default:
@@ -51,7 +52,16 @@ function TaskCard({
           {renderPriority(task.priority)}
         </div>
         <div className="flex">
-          <ProgressPill status={task.status} />
+          <Popover>
+            <PopoverTrigger>
+              <ProgressPill status={task.status} />
+            </PopoverTrigger>
+            <PopoverContent className="flex">
+              <ProgressPill status="Pending" />
+              <ProgressPill status="In Progress" />
+              <ProgressPill status="Completed" />
+            </PopoverContent>
+          </Popover>
           <button
             className="mr-2"
             onClick={() => {
