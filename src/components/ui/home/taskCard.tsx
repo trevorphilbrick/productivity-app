@@ -4,14 +4,16 @@ import { useState, useContext } from "react";
 import { RxChevronDown, RxChevronUp } from "react-icons/rx";
 import { RxCross2 } from "react-icons/rx";
 import ProgressPill from "./progressPill";
-import { deleteTask } from "@/lib/data";
+import { deleteTask, updateStatus } from "@/lib/data";
 import { TaskContext } from "@/context/taskContext";
 import {
   FcHighPriority,
   FcLowPriority,
   FcMediumPriority,
 } from "react-icons/fc";
-import { Popover, PopoverContent, PopoverTrigger } from "../popover";
+import clsx from "clsx";
+
+const statuses = ["Pending", "In Progress", "Completed"];
 
 function TaskCard({
   task,
@@ -26,8 +28,9 @@ function TaskCard({
   };
   key: number;
 }) {
-  const { setTasks } = useContext(TaskContext);
+  const { setTasks, tasks } = useContext(TaskContext);
   const [isExpanded, setIsExpanded] = useState(false);
+  const [isStatusExpanded, setIsStatusExpanded] = useState(false);
 
   const priorityStyles = "mr-4";
 
@@ -44,6 +47,23 @@ function TaskCard({
         return <FcLowPriority className={priorityStyles} />;
     }
   };
+
+  const handleClick = async (status: string) => {
+    if (!isStatusExpanded) {
+      setIsStatusExpanded(true);
+    } else {
+      if (status === task.status) return setIsStatusExpanded(false);
+      await updateStatus(task.id, status).then((res) => {
+        setTasks(
+          [
+            res.updatedTask.rows[0],
+            ...tasks.filter((t) => t.id !== task.id),
+          ].sort((a, b) => a.id - b.id)
+        );
+      });
+      setIsStatusExpanded(false);
+    }
+  };
   return (
     <Card key={key} className="mb-2 py-2 px-4 mx-4">
       <div className="flex justify-between">
@@ -52,16 +72,23 @@ function TaskCard({
           {renderPriority(task.priority)}
         </div>
         <div className="flex">
-          <Popover>
-            <PopoverTrigger>
-              <ProgressPill status={task.status} />
-            </PopoverTrigger>
-            <PopoverContent className="flex">
-              <ProgressPill status="Pending" />
-              <ProgressPill status="In Progress" />
-              <ProgressPill status="Completed" />
-            </PopoverContent>
-          </Popover>
+          <div className="relative">
+            <div className="absolute right-0 flex bg-white dark:bg-black">
+              {statuses
+                .filter((status) => status !== task.status)
+                .map((status) => (
+                  <ProgressPill
+                    status={status}
+                    key={status}
+                    onClick={handleClick}
+                    className={clsx({
+                      hidden: !isStatusExpanded,
+                    })}
+                  />
+                ))}
+              <ProgressPill status={task.status} onClick={handleClick} />
+            </div>
+          </div>
           <button
             className="mr-2"
             onClick={() => {

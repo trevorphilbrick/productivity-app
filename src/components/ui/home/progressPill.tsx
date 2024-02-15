@@ -1,4 +1,12 @@
-function ProgressPill({ status }: { status: string }) {
+function ProgressPill({
+  status,
+  className,
+  onClick,
+}: {
+  status: string;
+  className?: string;
+  onClick: (status: string) => void;
+}) {
   const color = () => {
     switch (status) {
       case "Pending":
@@ -11,9 +19,11 @@ function ProgressPill({ status }: { status: string }) {
         return "bg-gray-200";
     }
   };
+
   return (
     <div
-      className={`${color()} text-xs px-2 py-1 rounded-full mr-2 dark:text-slate-700`}
+      className={`${color()} text-xs px-2 py-1 rounded-full mr-2 dark:text-slate-700 text-nowrap cursor-pointer ${className}`}
+      onClick={() => onClick(status)}
     >
       {status}
     </div>
