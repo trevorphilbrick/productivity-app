@@ -9,14 +9,14 @@ import { useTheme } from "next-themes";
 
 function Navbar() {
   const { data: session } = useSession();
-  const { theme } = useTheme();
+  const { resolvedTheme } = useTheme();
 
   return (
     <nav className="w-full mb-8 flex justify-between px-4 md:px-8 py-4 items-center">
       <div className="flex items-center">
         <Link href="/">
           <Image
-            src={theme === "dark" ? zenrichLogoDark : zenrichLogo}
+            src={resolvedTheme === "dark" ? zenrichLogoDark : zenrichLogo}
             className="w-10 mr-4"
             alt="zenrich logo"
           />
