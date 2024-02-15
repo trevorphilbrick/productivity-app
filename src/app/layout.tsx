@@ -8,9 +8,36 @@ import Navbar from "@/components/ui/navbar";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  manifest: "../../public/manifest.json",
+  applicationName: "Zenrich",
   title: "Zenrich",
   description: "An app meant to increase productivity.",
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "Zenrich",
+    // startUpImage: [],
+  },
+  formatDetection: {
+    telephone: false,
+  },
+  openGraph: {
+    type: "website",
+    siteName: "Zenrich",
+    title: {
+      default: "Zenrich",
+      template: "%s | Zenrich",
+    },
+    description: "An app meant to increase productivity.",
+  },
+  twitter: {
+    card: "summary",
+    title: {
+      default: "Zenrich",
+      template: "%s | Zenrich",
+    },
+    description: "An app meant to increase productivity.",
+  },
 };
 
 export default async function RootLayout({
