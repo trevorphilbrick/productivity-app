@@ -17,7 +17,7 @@ function TaskList() {
   useEffect(() => {
     if (!session?.user?.name) return; // handle no user
     fetchTasks(session?.user?.name).then((data) => {
-      setTasks(data.tasks.rows);
+      setTasks(data.tasks.rows.sort((a: any, b: any) => a.id - b.id));
     });
   }, []);
 

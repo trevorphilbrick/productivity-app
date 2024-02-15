@@ -73,7 +73,7 @@ function Weather() {
 
   useEffect(() => {
     if (position.latitude && position.longitude) {
-      fetchCurrentWeather(position.latitude, position.longitude, true).then(
+      fetchCurrentWeather(position.latitude, position.longitude, false).then(
         (data) => {
           setWeather(data);
         }
@@ -82,7 +82,7 @@ function Weather() {
   }, [position]);
 
   return (
-    <Card className="md:w-64">
+    <Card className="md:w-64 mt-6 md:mt-0">
       <h1 className="text-center my-4 font-semibold text-lg">Weather</h1>
       <div className="flex items-center border mx-3 mb-2 rounded-md px-1 py-2">
         <div className="mr-3">

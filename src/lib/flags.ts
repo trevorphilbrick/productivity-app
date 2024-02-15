@@ -1,4 +1,4 @@
-const shouldShowWeather = false;
+const shouldShowWeather = true;
 const shouldShowEvents = false;
 
 export const flags = {

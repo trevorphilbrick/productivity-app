@@ -73,6 +73,21 @@ export const deleteTask = async (id: number) => {
   return data;
 };
 
+export const updateStatus = async (id: number, status: string) => {
+  const data = await fetch(
+    `${base_url}/api/update-status?id=${id}&status=${status}`,
+    {
+      cache: "no-cache",
+      next: {
+        revalidate: 0,
+      },
+    }
+  ).then((response) => {
+    return response.json();
+  });
+  return data;
+};
+
 export const addQuicklink = async (quicklink: any) => {
   const { linkTitle: title, linkUrl, user_id: userId } = quicklink;
 
