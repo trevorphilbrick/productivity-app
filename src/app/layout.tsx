@@ -5,6 +5,7 @@ import { getServerSession } from "next-auth";
 import SessionProvider from "@/components/sessionProvider";
 import { ThemeProvider } from "@/components/themeProvider";
 import Navbar from "@/components/ui/navbar";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {

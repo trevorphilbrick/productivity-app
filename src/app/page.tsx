@@ -1,10 +1,16 @@
 import Image from "next/image";
-import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import blackMobile from "../../public/mobile-black.png";
 import blackDesktop from "../../public/3-devices-black.png";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
 
-export default function Home() {
+export default async function Home() {
+  const session = await getServerSession();
+  if (session) {
+    redirect("/dashboard");
+  }
+
   return (
     <main className="flex flex-col items-center text-wrap">
       <div className="flex flex-col md:flex-row w-full md:mx-8 max-w-screen-xl px-4 ">
