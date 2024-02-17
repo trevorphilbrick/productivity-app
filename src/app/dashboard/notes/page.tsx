@@ -34,7 +34,7 @@ function Page() {
             professionals, students, and anyone in between who values
             organization and efficiency. With its sleek, user-friendly
             interface, NoteMaster Pro transforms the way you capture, organize,
-            and share information. Whether you're jotting down quick reminders,
+            and share information. Whether youre jotting down quick reminders,
             compiling detailed research notes, or brainstorming for your next
             big project, this app has you covered.
           </Card>
