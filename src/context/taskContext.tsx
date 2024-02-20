@@ -1,5 +1,5 @@
 import { useState, createContext } from "react";
-import { Todo, MyContextType } from "@/lib/types";
+import { Task, MyContextType } from "@/lib/types";
 
 export const TaskContext = createContext<MyContextType>({
   tasks: [],
@@ -11,7 +11,7 @@ export default function TaskProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const [tasks, setTasks] = useState<Todo[]>([]);
+  const [tasks, setTasks] = useState<Task[]>([]);
   return (
     <TaskContext.Provider value={{ tasks, setTasks }}>
       {children}

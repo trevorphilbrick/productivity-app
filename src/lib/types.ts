@@ -1,4 +1,4 @@
-export type Todo = {
+export type Task = {
   title: string;
   description: string;
   status: "Pending" | "In Progress" | "Completed";
@@ -13,8 +13,8 @@ export type Quicklink = {
 };
 
 export type MyContextType = {
-  tasks: Todo[]; // Adjust the type according to your state's structure
-  setTasks: React.Dispatch<React.SetStateAction<Todo[]>>; // This matches the signature of the setState function provided by useState
+  tasks: Task[]; // Adjust the type according to your state's structure
+  setTasks: React.Dispatch<React.SetStateAction<Task[]>>; // This matches the signature of the setState function provided by useState
 };
 
 export type QuicklinkContextType = {
