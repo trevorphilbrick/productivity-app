@@ -6,4 +6,8 @@ export const textContent = {
       emptyTaskList: "Add some tasks!",
     },
   },
+  quicklinks: {
+    quicklinkSectionHeader: "Quicklinks",
+    quicklinkSectionAddButton: "add",
+  },
 };
