@@ -6,6 +6,7 @@ import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import AddQuicklinkForm from "@/components/ui/home/addQuicklinkForm";
 import QuicklinksList from "@/components/ui/home/quicklinksList";
+import { textContent } from "@/lib/textContent";
 
 function Page() {
   const { data: session } = useSession();
@@ -17,9 +18,11 @@ function Page() {
     <QuicklinkProvider>
       <Sheet>
         <div className="flex  px-4 justify-between items-center w-screen md:w-auto ">
-          <h1 className="font-semibold text-lg mb-4">Quicklinks</h1>
+          <h1 className="font-semibold text-lg mb-4">
+            {textContent.quicklinks.quicklinkSectionHeader}
+          </h1>
           <SheetTrigger className="flex items-center text-sm">
-            add
+            {textContent.quicklinks.quicklinkSectionAddButton}
             <RxPlus className="ml-1" />
           </SheetTrigger>
         </div>
