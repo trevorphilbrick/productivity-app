@@ -8,6 +8,7 @@ import TaskList from "@/components/ui/home/taskList";
 import { useToast } from "@/components/ui/use-toast";
 import { useEffect } from "react";
 import { textContent } from "@/lib/textContent";
+import { ToastAction } from "@/components/ui/toast";
 
 function Page() {
   const { toast } = useToast();
@@ -15,7 +16,25 @@ function Page() {
   useEffect(() => {
     setTimeout(() => {
       toast({
-        title: "success!!",
+        title: "Want Reminders?",
+        description: "Enable notifications to get daily reminders!",
+        action: (
+          <ToastAction
+            altText="Enable notifications"
+            onClick={() => {
+              Notification.requestPermission().then((result) => {
+                if (result === "granted") {
+                  toast({
+                    title: "Notifications Enabled",
+                    description: "You will now receive daily reminders!",
+                  });
+                }
+              });
+            }}
+          >
+            Enable
+          </ToastAction>
+        ),
       });
     }, 3000);
   }, []);
