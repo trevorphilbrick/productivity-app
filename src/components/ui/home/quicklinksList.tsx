@@ -1,20 +1,26 @@
 "use client";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { QuicklinkContext } from "@/context/quicklinksContext";
 import { fetchQuicklinks, deleteQuicklink } from "@/lib/data";
 import { useSession } from "next-auth/react";
 import QuicklinkCard from "./quicklinkCard";
+import { Skeleton } from "../skeleton";
 
 function QuicklinksList() {
   const { data: session } = useSession();
   const { quicklinks, setQuicklinks } = useContext(QuicklinkContext);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (!session?.user?.name) return;
-    fetchQuicklinks(session?.user?.name).then((data) => {
-      setQuicklinks(data.quicklinks.rows);
-      console.log("quicklinks", quicklinks);
-    });
+    fetchQuicklinks(session?.user?.name)
+      .then((data) => {
+        setQuicklinks(data.quicklinks.rows);
+        console.log("quicklinks", quicklinks);
+      })
+      .then(() => {
+        setLoading(false);
+      });
   }, []);
 
   useEffect(() => {
@@ -27,6 +33,23 @@ function QuicklinksList() {
     });
   };
 
+  if (loading) {
+    return (
+      <div className="flex flex-wrap mx-4">
+        <Skeleton className="h-12 w-64 mr-2 mb-2" />
+        <Skeleton className="h-12 w-32 mr-2 mb-2" />
+        <Skeleton className="h-12 w-48 mr-2 mb-2" />
+        <Skeleton className="h-12 w-24 mr-2 mb-2" />
+        <Skeleton className="h-12 w-64 mr-2 mb-2" />
+        <Skeleton className="h-12 w-32 mr-2 mb-2" />
+        <Skeleton className="h-12 w-48 mr-2 mb-2" />
+        <Skeleton className="h-12 w-32 mr-2 mb-2" />
+        <Skeleton className="h-12 w-48 mr-2 mb-2" />
+        <Skeleton className="h-12 w-24 mr-2 mb-2" />
+        <Skeleton className="h-12 w-64 mr-2 mb-2" />
+      </div>
+    );
+  }
   return (
     <div className="flex flex-wrap mx-4">
       {quicklinks.map((quicklink) => (

@@ -6,8 +6,8 @@ import AddTaskForm from "@/components/ui/home/addTaskForm";
 import TaskProvider from "@/context/taskContext";
 import TaskList from "@/components/ui/home/taskList";
 import { useToast } from "@/components/ui/use-toast";
-import { Button } from "@/components/ui/button";
 import { useEffect } from "react";
+import { textContent } from "@/lib/textContent";
 
 function Page() {
   const { toast } = useToast();
@@ -24,10 +24,11 @@ function Page() {
     <TaskProvider>
       <Sheet>
         <div className="flex justify-between items-center  px-4 justify-between items-center w-screen md:w-auto">
-          <h1 className="font-semibold text-lg mb-4">Tasks</h1>
-
+          <h1 className="font-semibold text-lg mb-4">
+            {textContent.tasks.taskSectionHeader}
+          </h1>
           <SheetTrigger className="flex items-center text-sm">
-            add
+            {textContent.tasks.taskSectionAddButton}
             <RxPlus className="ml-1" />
           </SheetTrigger>
         </div>

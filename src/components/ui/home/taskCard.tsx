@@ -12,38 +12,25 @@ import {
   FcMediumPriority,
 } from "react-icons/fc";
 import clsx from "clsx";
+import { Task } from "@/lib/types";
 
 const statuses = ["Pending", "In Progress", "Completed"];
 
-function TaskCard({
-  task,
-  key,
-}: {
-  task: {
-    title: string;
-    description: string;
-    status: "Pending" | "In Progress" | "Completed";
-    priority: "low" | "medium" | "high";
-    id: number;
-  };
-  key: number;
-}) {
+function TaskCard({ task, key }: { task: Task; key: number }) {
   const { setTasks, tasks } = useContext(TaskContext);
   const [isExpanded, setIsExpanded] = useState(false);
   const [isStatusExpanded, setIsStatusExpanded] = useState(false);
 
-  const priorityStyles = "mr-4";
-
   const renderPriority = (priority: string) => {
     switch (priority) {
       case "low":
-        return <FcLowPriority className={priorityStyles} />;
+        return <FcLowPriority className="mr-4" />;
       case "medium":
-        return <FcMediumPriority className={priorityStyles} />;
+        return <FcMediumPriority className="mr-4" />;
       case "high":
-        return <FcHighPriority className={priorityStyles} />;
+        return <FcHighPriority className="mr-4" />;
       default:
-        return <FcLowPriority className={priorityStyles} />;
+        return <FcLowPriority className="mr-4" />;
     }
   };
 
