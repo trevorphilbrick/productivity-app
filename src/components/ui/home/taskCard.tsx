@@ -35,7 +35,6 @@ function TaskCard({
   const priorityStyles = "mr-4";
 
   const renderPriority = (priority: string) => {
-    console.log(priority);
     switch (priority) {
       case "low":
         return <FcLowPriority className={priorityStyles} />;

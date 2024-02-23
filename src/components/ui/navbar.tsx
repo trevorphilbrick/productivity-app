@@ -6,6 +6,7 @@ import Image from "next/image";
 import zenrichLogo from "../../../public/zenrich-logo.svg";
 import zenrichLogoDark from "../../../public/zenrich-logo-dark.svg";
 import { useTheme } from "next-themes";
+import { Button } from "./button";
 
 function Navbar() {
   const { data: session } = useSession();

@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import React from "react";
 import "./globals.css";
 import { getServerSession } from "next-auth";
 import SessionProvider from "@/components/sessionProvider";
 import { ThemeProvider } from "@/components/themeProvider";
 import Navbar from "@/components/ui/navbar";
+import { Toaster } from "../components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -58,6 +60,7 @@ export default async function RootLayout({
           disableTransitionOnChange
         >
           <SessionProvider session={session}>
+            <Toaster />
             <Navbar />
             {children}
           </SessionProvider>
