@@ -34,16 +34,16 @@ function layout({
         {flags.shouldShowEvents && <Events />}
         <div className="flex flex-col w-full px-4 md:w-64 mb-6 md:mb-0">
           <h1 className="mb-4 font-bold text-2xl text-blue-500">Dashboard</h1>
-          <nav className="flex flex-col">
-            {dashboardData.map((item) => (
+          <nav className="flex flex-row md:flex-col">
+            {dashboardData.map((item, index) => (
               <Link
                 key={item.title}
                 href={item.link}
                 className="hover:bg-gray-100"
               >
-                <div className="flex items-center py-4 px-4 ">
+                <div className="flex items-center py-4 px-4">
                   {item.iconComponent}
-                  <p className="  ml-2">{item.title}</p>
+                  <p className="ml-2">{item.title}</p>
                 </div>
                 <Separator />
               </Link>
