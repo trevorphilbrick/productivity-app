@@ -20,7 +20,7 @@ const formSchema = z.object({
   user_id: z.string(),
 });
 
-function page() {
+function Page() {
   const { data: session } = useSession();
 
   const form = useForm({
@@ -31,7 +31,7 @@ function page() {
       user_id: session?.user?.name || "",
     },
   });
-  const onSubmit = (values) => {
+  const onSubmit = (values: z.infer<typeof formSchema>) => {
     console.log(values);
   };
   return (
@@ -69,4 +69,4 @@ function page() {
   );
 }
 
-export default page;
+export default Page;
