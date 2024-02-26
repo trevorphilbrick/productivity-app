@@ -164,3 +164,31 @@ export const fetchNotes = async (user_id: string) => {
   });
   return data;
 };
+
+export const fetchNote = async (user_id: string, id: number) => {
+  const data = await fetch(
+    `${base_url}/api/get-note?userId=${user_id}&id=${id}`,
+    {
+      method: "GET",
+      cache: "no-cache",
+      next: {
+        revalidate: 0,
+      },
+    }
+  ).then((response) => {
+    return response.json();
+  });
+  return data;
+};
+
+export const deleteNote = async (id: number) => {
+  const data = await fetch(`${base_url}/api/delete-note?id=${id}`, {
+    cache: "no-cache",
+    next: {
+      revalidate: 0,
+    },
+  }).then((response) => {
+    return response.json();
+  });
+  return data;
+};
