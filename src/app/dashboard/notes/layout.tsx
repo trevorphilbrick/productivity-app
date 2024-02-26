@@ -4,7 +4,7 @@ import Link from "next/link";
 import { RxPlus } from "react-icons/rx";
 import { usePathname } from "next/navigation";
 
-function layout({
+function Layout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -31,4 +31,4 @@ function layout({
   );
 }
 
-export default layout;
+export default Layout;
