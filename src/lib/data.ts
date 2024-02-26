@@ -91,8 +91,6 @@ export const updateStatus = async (id: number, status: string) => {
 export const addQuicklink = async (quicklink: any) => {
   const { linkTitle: title, linkUrl, user_id: userId } = quicklink;
 
-  console.log("api call obj", { title, linkUrl, userId });
-
   const data = await fetch(
     `${base_url}/api/add-link?title=${encodeURIComponent(
       title
@@ -112,7 +110,6 @@ export const addQuicklink = async (quicklink: any) => {
 };
 
 export const fetchQuicklinks = async (user_id: string) => {
-  console.log(user_id);
   const data = await fetch(`${base_url}/api/get-links?userId=${user_id}`, {
     method: "GET",
     cache: "no-cache",
@@ -127,6 +124,37 @@ export const fetchQuicklinks = async (user_id: string) => {
 
 export const deleteQuicklink = async (id: number) => {
   const data = await fetch(`${base_url}/api/delete-link?id=${id}`, {
+    cache: "no-cache",
+    next: {
+      revalidate: 0,
+    },
+  }).then((response) => {
+    return response.json();
+  });
+  return data;
+};
+
+export const addNote = async (
+  noteTitle: string,
+  noteBody: string,
+  user_id: string
+) => {
+  const bodyData = {
+    noteBody,
+  };
+  const data = await fetch(
+    `${base_url}/api/add-note?noteTitle=${encodeURIComponent(
+      noteTitle
+    )}&user_id=${user_id}`,
+    { method: "POST", body: JSON.stringify(bodyData) }
+  );
+
+  return data;
+};
+
+export const fetchNotes = async (user_id: string) => {
+  const data = await fetch(`${base_url}/api/get-notes?userId=${user_id}`, {
+    method: "GET",
     cache: "no-cache",
     next: {
       revalidate: 0,
