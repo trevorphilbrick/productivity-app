@@ -1,22 +1,22 @@
 import { sql } from "@vercel/postgres";
 import { NextResponse } from "next/server";
 
-export async function GET(request: Request) {
+export async function POST(request: Request) {
   const { searchParams } = new URL(request.url);
-  const title = searchParams.get("title");
-  const linkUrl = searchParams.get("linkUrl");
-  const user_id = searchParams.get("userId");
+  const res = await request.json();
 
-  console.log("backend obj", { title, linkUrl, user_id });
+  const noteTitle = searchParams.get("noteTitle");
+  const noteBody = res.noteBody;
+  const user_id = searchParams.get("user_id");
+  const timeStamp = new Date().toLocaleString();
 
   try {
-    if (!title || !linkUrl || !user_id)
+    if (!noteTitle || !noteBody || !user_id || !timeStamp)
       throw new Error("Missing required fields.");
-    await sql`INSERT INTO quicklinks (Linktitle, Linkurl, User_id) VALUES (${title}, ${linkUrl}, ${user_id});`;
+    await sql`INSERT INTO notes (NoteTitle, NoteBody, TimeStamp, User_id) VALUES (${noteTitle}, ${noteBody}, ${timeStamp}, ${user_id});`;
   } catch (error) {
     return NextResponse.json({ error }, { status: 500 });
   }
 
-  const quicklinks = await sql`SELECT * FROM quicklinks;`;
-  return NextResponse.json({ quicklinks }, { status: 200 });
+  return NextResponse.json({ status: 201 });
 }
