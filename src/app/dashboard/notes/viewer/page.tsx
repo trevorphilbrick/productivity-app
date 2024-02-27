@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Markdown from "react-markdown";
 import { useSession } from "next-auth/react";
 import { Note } from "@/lib/types";
+import styles from "./markdown.module.css";
 
 function Page({ searchParams }: { searchParams: { id: number } }) {
   const session = useSession();
@@ -19,7 +20,9 @@ function Page({ searchParams }: { searchParams: { id: number } }) {
   return (
     data && (
       <div className="mx-4">
-        <Markdown>{`# ${data.notetitle}\n\n${data.notebody}`}</Markdown>
+        <Markdown
+          className={styles.markdown}
+        >{`# ${data.notetitle}\n\n${data.notebody}`}</Markdown>
         <p className="text-slate-500 text-xs mt-8 text-end">
           Last edited at {new Date(data.timestamp).toLocaleString()}
         </p>
