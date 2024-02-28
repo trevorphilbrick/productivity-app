@@ -66,7 +66,7 @@ function TaskCard({ task, key }: { task: Task; key: number }) {
       )}
     >
       <div className="flex justify-between">
-        <div className="flex items-center">
+        <div className="flex items-center flex-1 ">
           <h1 className="mr-2 line-clamp-1 text-ellipses">{task.title}</h1>
           {renderPriority(task.priority)}
         </div>
@@ -87,9 +87,8 @@ function TaskCard({ task, key }: { task: Task; key: number }) {
                       key={status}
                       onClick={handleClick}
                       className={clsx(
-                        "transition-opacity delay-100 duration-200 ease-in-out",
-                        !isStatusExpanded && "opacity-0",
-                        isStatusExpanded && " opacity-100"
+                        !isStatusExpanded && "hidden",
+                        isStatusExpanded && "block"
                       )}
                     />
                   ))}
