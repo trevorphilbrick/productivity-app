@@ -39,9 +39,9 @@ function layout({
               <Link
                 key={item.title}
                 href={item.link}
-                className="hover:bg-gray-100"
+                className=" group hover:bg-gray-100 dark:hover:bg-slate-800 "
               >
-                <div className="flex items-center py-4 px-4">
+                <div className="flex items-center py-4 px-4 group-hover:animate-pulse">
                   {item.iconComponent}
                   <p className="ml-2">{item.title}</p>
                 </div>
