@@ -4,7 +4,6 @@ import { flags } from "@/lib/flags";
 import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
 import { RxCheckCircled, RxPaperPlane, RxPencil2 } from "react-icons/rx";
-import "./markdown.css";
 
 const dashboardData = [
   {
