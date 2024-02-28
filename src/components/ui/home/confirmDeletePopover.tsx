@@ -10,7 +10,7 @@ function DeletePopover({ onDelete }: { onDelete: () => void }) {
   return (
     <Popover>
       <PopoverTrigger>
-        <RxCross2 />
+        <RxCross2 className="hover:text-slate-500 transition-all active:scale-50" />
       </PopoverTrigger>
       <PopoverContent className="w-auto flex items-center">
         <p className="mr-4">Are you sure?</p>

@@ -5,6 +5,7 @@ import { getServerSession } from "next-auth";
 import SessionProvider from "@/components/sessionProvider";
 import { ThemeProvider } from "@/components/themeProvider";
 import Navbar from "@/components/ui/navbar";
+import { flags } from "@/lib/flags";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -53,7 +54,7 @@ export default async function RootLayout({
       <body className={inter.className}>
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
+          defaultTheme={flags.defaultTheme}
           enableSystem
           disableTransitionOnChange
         >

@@ -44,9 +44,11 @@ function TaskList() {
           {textContent.tasks.taskList.emptyTaskList}
         </div>
       ) : (
-        tasks.map((task: Task, index: number) => {
-          return <TaskCard task={task} key={index} />;
-        })
+        <div className="divide-y">
+          {tasks.map((task: Task, index: number) => {
+            return <TaskCard task={task} key={index} />;
+          })}
+        </div>
       )}
     </>
   );

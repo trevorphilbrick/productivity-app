@@ -14,41 +14,54 @@ import clsx from "clsx";
 import { Task } from "@/lib/types";
 import DeletePopover from "./confirmDeletePopover";
 
-const statuses = ["Pending", "In Progress", "Completed"];
+const Priority = ({
+  priority,
+  className,
+}: {
+  priority: string;
+  className?: string;
+}) => {
+  switch (priority) {
+    case "low":
+      return <FcLowPriority className={`${className}`} />;
+    case "medium":
+      return <FcMediumPriority className={`${className}`} />;
+    case "high":
+      return <FcHighPriority className={`${className}`} />;
+    default:
+      return <FcLowPriority className={`${className}`} />;
+  }
+};
 
 function TaskCard({ task, key }: { task: Task; key: number }) {
   const { setTasks, tasks } = useContext(TaskContext);
   const [isExpanded, setIsExpanded] = useState(false);
-  const [isStatusExpanded, setIsStatusExpanded] = useState(false);
 
-  const renderPriority = (priority: string) => {
-    switch (priority) {
-      case "low":
-        return <FcLowPriority className="mr-4" />;
-      case "medium":
-        return <FcMediumPriority className="mr-4" />;
-      case "high":
-        return <FcHighPriority className="mr-4" />;
+  const handleNextStatus = (status: string) => {
+    console.log("passed status:", status);
+    switch (status) {
+      case "Pending":
+        return "In Progress";
+      case "In Progress":
+        return "Completed";
+      case "Completed":
+        return "Pending";
       default:
-        return <FcLowPriority className="mr-4" />;
+        return "Pending";
     }
   };
 
   const handleClick = async (status: string) => {
-    if (!isStatusExpanded) {
-      setIsStatusExpanded(true);
-    } else {
-      if (status === task.status) return setIsStatusExpanded(false);
-      await updateStatus(task.id, status).then((res) => {
-        setTasks(
-          [
-            res.updatedTask.rows[0],
-            ...tasks.filter((t) => t.id !== task.id),
-          ].sort((a, b) => a.id - b.id)
-        );
-      });
-      setIsStatusExpanded(false);
-    }
+    console.log("new status:", status);
+
+    await updateStatus(task.id, status).then((res) => {
+      setTasks(
+        [
+          res.updatedTask.rows[0],
+          ...tasks.filter((t) => t.id !== task.id),
+        ].sort((a, b) => a.id - b.id)
+      );
+    });
   };
 
   const handleDelete = () => {
@@ -58,59 +71,51 @@ function TaskCard({ task, key }: { task: Task; key: number }) {
   };
 
   return (
-    <Card
-      key={key}
-      className={clsx(
-        "mb-2 py-2 px-4 mx-4"
-        // animate card opening
-      )}
-    >
-      <div className="flex justify-between">
-        <div className="flex items-center">
-          <h1 className="mr-2 line-clamp-1 text-ellipses">{task.title}</h1>
-          {renderPriority(task.priority)}
+    // card container div
+    <div className="p-4">
+      {/* collapsed content div */}
+      <div key={key} className=" flex justify-between items-center ">
+        {/* left container */}
+        <div className="flex items-center mr-4">
+          <p
+            className={clsx(
+              "mr-2  text-ellipses",
+              !isExpanded && "line-clamp-1"
+            )}
+          >
+            {task.title}
+          </p>
+          <Priority priority={task.priority} />
         </div>
-        <div className="flex">
-          <div className="relative">
-            <div className="absolute right-0 flex bg-white dark:bg-black">
-              <div
-                className={clsx(
-                  "flex flex-row items-center transition-all ease-in-out ",
-                  isStatusExpanded ? "w-auto" : setTimeout(() => "w-0", 400)
-                )}
-              >
-                {statuses
-                  .filter((status) => status !== task.status)
-                  .map((status) => (
-                    <ProgressPill
-                      status={status}
-                      key={status}
-                      onClick={handleClick}
-                      className={clsx(
-                        "transition-opacity delay-100 duration-200 ease-in-out",
-                        !isStatusExpanded && "opacity-0",
-                        isStatusExpanded && " opacity-100"
-                      )}
-                    />
-                  ))}
-              </div>
-              <ProgressPill status={task.status} onClick={handleClick} />
-            </div>
-          </div>
-          <DeletePopover onDelete={handleDelete} />
+        {/* right container */}
+        <div className="flex items-center">
+          <ProgressPill
+            status={task.status}
+            onClick={handleClick}
+            handleNextStatus={handleNextStatus}
+            className="mr-2"
+          />
           <button
             onClick={() => {
               setIsExpanded(!isExpanded);
             }}
+            className={clsx(
+              "mr-2 transition-all hover:text-slate-500 text-lg",
+              isExpanded && "rotate-180"
+            )}
           >
-            {isExpanded ? <RxChevronUp /> : <RxChevronDown />}
+            <RxChevronDown />
           </button>
+          <DeletePopover onDelete={handleDelete} />
         </div>
       </div>
+      {/* expanded content */}
       {isExpanded && (
-        <p className="text-sm text-slate-600">{task.description}</p>
+        <div className="mt-2">
+          <p className="text-sm">{task.description}</p>
+        </div>
       )}
-    </Card>
+    </div>
   );
 }
 
