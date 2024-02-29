@@ -5,22 +5,26 @@ import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { Note } from "@/lib/types";
 import NoteCard from "@/components/ui/home/noteCard";
+import clsx from "clsx";
 
 function Page() {
   const session = useSession();
   const [data, setData] = useState<Note[]>();
 
   useEffect(() => {
-    if (session.data?.user?.name) {
-      fetchNotes(session.data?.user?.name).then((res) => {
-        console.log(res.notes.rows);
-        setData(res.notes.rows);
-      });
-    }
+    const getNotes = async () => {
+      if (session.data?.user?.name) {
+        await fetchNotes(session.data?.user?.name).then((res) => {
+          console.log(res.notes.rows);
+          setData(res.notes.rows);
+        });
+      }
+    };
+    getNotes();
   }, []);
 
-  const handleDeleteNote = (id: number) => {
-    deleteNote(id).then((res) => {
+  const handleDeleteNote = async (id: number) => {
+    await deleteNote(id).then((res) => {
       console.log(res);
       setData(res.notes.rows);
     });
@@ -29,8 +33,13 @@ function Page() {
   return (
     <div className="flex flex-wrap">
       {data &&
-        data.map((note) => (
-          <NoteCard note={note} key={note.id} onDelete={handleDeleteNote} />
+        data.map((note, index) => (
+          <NoteCard
+            note={note}
+            key={note.id}
+            onDelete={handleDeleteNote}
+            index={index}
+          />
         ))}
     </div>
   );
