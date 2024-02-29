@@ -18,6 +18,12 @@ export type Note = {
   timestamp: string;
   id: number;
 };
+
+export type FetchedNote = {
+  title: string;
+  body: string;
+  id: number;
+};
 export type MyContextType = {
   tasks: Task[]; // Adjust the type according to your state's structure
   setTasks: React.Dispatch<React.SetStateAction<Task[]>>; // This matches the signature of the setState function provided by useState

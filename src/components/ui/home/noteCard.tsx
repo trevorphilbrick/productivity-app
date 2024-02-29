@@ -28,7 +28,14 @@ const FloatingActions = ({
         </Link>
       </div>
       <div className="flex-1 flex justify-center">
-        <RxPencil2 />
+        <Link
+          href={{
+            pathname: "/dashboard/notes/editor",
+            query: { id: id },
+          }}
+        >
+          <RxPencil2 />
+        </Link>
       </div>
       <div
         className="flex-1 flex justify-center cursor-pointer"

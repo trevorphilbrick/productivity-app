@@ -3,7 +3,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { useSession } from "next-auth/react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
 import { z } from "zod";
 import {
   Form,
@@ -13,9 +13,12 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
-import { addNote } from "@/lib/data";
-import { useState } from "react";
+import { addNote, fetchNote } from "@/lib/data";
+import { useState, useEffect } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
+import { FetchedNote, Note } from "@/lib/types";
+import { parse } from "path";
 
 const formSchema = z.object({
   title: z.string().min(2).max(50),
@@ -24,8 +27,11 @@ const formSchema = z.object({
 });
 
 function Page() {
+  const params = useSearchParams();
+  const noteId = params.get("id");
   const { data: session } = useSession();
   const [isPosting, setIsPosting] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -35,6 +41,27 @@ function Page() {
       user_id: session?.user?.name || "",
     },
   });
+  useEffect(() => {
+    const handleFetchNote = async () => {
+      if (noteId) {
+        setIsLoading(true);
+        try {
+          const {
+            note: { rows },
+          } = await fetchNote(session?.user?.name || "", parseInt(noteId));
+          console.log(rows);
+          form.setValue("title", rows[0].notetitle);
+          form.setValue("body", rows[0].notebody);
+          setIsLoading(false);
+        } catch (error) {
+          console.error("Error fetching note", error);
+        }
+      }
+    };
+
+    handleFetchNote();
+  }, []);
+
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     setIsPosting(true);
 
@@ -46,6 +73,10 @@ function Page() {
 
     setIsPosting(false);
   };
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <Form {...form}>
