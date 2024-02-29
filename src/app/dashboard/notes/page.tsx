@@ -15,17 +15,16 @@ function Page() {
     const getNotes = async () => {
       if (session.data?.user?.name) {
         await fetchNotes(session.data?.user?.name).then((res) => {
-          console.log(res.notes.rows);
           setData(res.notes.rows);
         });
       }
     };
     getNotes();
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- only run on mount
   }, []);
 
   const handleDeleteNote = async (id: number) => {
     await deleteNote(id).then((res) => {
-      console.log(res);
       setData(res.notes.rows);
     });
   };

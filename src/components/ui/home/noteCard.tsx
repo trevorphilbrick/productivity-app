@@ -78,7 +78,9 @@ function NoteCard({
               {note.notetitle}
             </p>
             <p className="text-xs text-slate-500">
-              {new Date(note.timestamp).toLocaleString()}
+              {`${note.isEdited ? "edited " : "created "}${new Date(
+                note.timestamp
+              ).toLocaleString()}`}
             </p>
           </div>
 

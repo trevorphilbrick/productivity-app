@@ -13,12 +13,10 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
-import { addNote, fetchNote } from "@/lib/data";
+import { addNote, fetchNote, updateNote } from "@/lib/data";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { FetchedNote, Note } from "@/lib/types";
-import { parse } from "path";
 
 const formSchema = z.object({
   title: z.string().min(2).max(50),
@@ -32,6 +30,7 @@ function Page() {
   const { data: session } = useSession();
   const [isPosting, setIsPosting] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -43,35 +42,52 @@ function Page() {
   });
   useEffect(() => {
     const handleFetchNote = async () => {
+      // if there is a note id, fetch the note and set the form values
       if (noteId) {
         setIsLoading(true);
         try {
           const {
             note: { rows },
           } = await fetchNote(session?.user?.name || "", parseInt(noteId));
-          console.log(rows);
+
+          if (rows.length === 0) {
+            return;
+          }
+
+          setIsEditing(true);
+
           form.setValue("title", rows[0].notetitle);
           form.setValue("body", rows[0].notebody);
           setIsLoading(false);
-        } catch (error) {
-          console.error("Error fetching note", error);
+        } catch (error: any) {
+          throw Error("Error fetching note", error);
         }
       }
     };
 
     handleFetchNote();
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- only run on mount
   }, []);
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     setIsPosting(true);
+    if (isEditing && noteId) {
+      const res = await updateNote(values.title, values.body, parseInt(noteId));
 
-    const res = await addNote(values.title, values.body, values.user_id);
+      if (res.status === 200) {
+        form.reset();
+      }
 
-    if (res.status === 200) {
-      form.reset();
+      setIsPosting(false);
+    } else {
+      const res = await addNote(values.title, values.body, values.user_id);
+
+      if (res.status === 200) {
+        form.reset();
+      }
+
+      setIsPosting(false);
     }
-
-    setIsPosting(false);
   };
 
   if (isLoading) {

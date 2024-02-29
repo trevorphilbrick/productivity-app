@@ -6,8 +6,6 @@ export async function GET(request: Request) {
   const user_id = searchParams.get("userId");
   const id = searchParams.get("id");
 
-  console.log(user_id, id);
-
   const note =
     await sql`SELECT * FROM notes WHERE User_id = ${user_id} AND Id = ${id};`;
   return NextResponse.json({ note }, { status: 200 });

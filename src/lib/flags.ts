@@ -1,6 +1,6 @@
 const shouldShowWeather = false;
 const shouldShowEvents = false;
-const defaultTheme = "system"; // "system" | "light" | "dark"
+const defaultTheme = "system";
 
 export const flags = {
   shouldShowWeather,

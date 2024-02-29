@@ -15,6 +15,7 @@ function Page({ searchParams }: { searchParams: { id: number } }) {
     fetchNote(session.data?.user?.name, searchParams.id).then((res) => {
       setData(res.note.rows[0]);
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- only run on mount
   }, []);
 
   return (
