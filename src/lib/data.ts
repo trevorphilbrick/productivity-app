@@ -12,7 +12,6 @@ export const fetchCurrentWeather = async (
   useMock: boolean = false
 ) => {
   if (useMock) {
-    console.log("using mock current weather data");
     return mockCurrentWeatherData;
   }
 
@@ -148,6 +147,24 @@ export const addNote = async (
     )}&user_id=${user_id}`,
     { method: "POST", body: JSON.stringify(bodyData) }
   );
+
+  return data;
+};
+
+export const updateNote = async (
+  noteTitle: string,
+  noteBody: string,
+  id: number
+) => {
+  const bodyData = {
+    noteTitle,
+    noteBody,
+  };
+
+  const data = await fetch(`${base_url}/api/update-note?id=${id}`, {
+    method: "POST",
+    body: JSON.stringify(bodyData),
+  });
 
   return data;
 };

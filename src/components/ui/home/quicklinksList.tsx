@@ -16,16 +16,14 @@ function QuicklinksList() {
     fetchQuicklinks(session?.user?.name)
       .then((data) => {
         setQuicklinks(data.quicklinks.rows);
-        console.log("quicklinks", quicklinks);
       })
       .then(() => {
         setLoading(false);
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- only run on mount
   }, []);
 
-  useEffect(() => {
-    console.log("quicklinks", quicklinks);
-  }, [quicklinks]);
+  useEffect(() => {}, [quicklinks]);
 
   const onDelete = (id: number) => {
     deleteQuicklink(id).then((data) => {

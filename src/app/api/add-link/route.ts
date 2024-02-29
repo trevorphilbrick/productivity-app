@@ -7,8 +7,6 @@ export async function GET(request: Request) {
   const linkUrl = searchParams.get("linkUrl");
   const user_id = searchParams.get("userId");
 
-  console.log("backend obj", { title, linkUrl, user_id });
-
   try {
     if (!title || !linkUrl || !user_id)
       throw new Error("Missing required fields.");

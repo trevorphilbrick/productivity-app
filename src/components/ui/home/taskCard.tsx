@@ -38,7 +38,6 @@ function TaskCard({ task, key }: { task: Task; key: number }) {
   const [isExpanded, setIsExpanded] = useState(false);
 
   const handleNextStatus = (status: string) => {
-    console.log("passed status:", status);
     switch (status) {
       case "Pending":
         return "In Progress";
@@ -52,8 +51,6 @@ function TaskCard({ task, key }: { task: Task; key: number }) {
   };
 
   const handleClick = async (status: string) => {
-    console.log("new status:", status);
-
     await updateStatus(task.id, status).then((res) => {
       setTasks(
         [
