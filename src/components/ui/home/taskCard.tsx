@@ -46,8 +46,6 @@ function TaskCard({
   const { setTasks, tasks } = useContext(TaskContext);
   const [isExpanded, setIsExpanded] = useState(false);
 
-  console.log(posIndex, "posIndex");
-
   const taskRef = useRef(null);
 
   const isVisible = useIsVisible(taskRef);
