@@ -46,7 +46,7 @@ function TaskList() {
       ) : (
         <div className="divide-y">
           {tasks.map((task: Task, index: number) => {
-            return <TaskCard task={task} key={index} />;
+            return <TaskCard task={task} key={index} posIndex={index} />;
           })}
         </div>
       )}

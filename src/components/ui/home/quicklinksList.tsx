@@ -50,11 +50,12 @@ function QuicklinksList() {
   }
   return (
     <div className="flex flex-wrap mx-4">
-      {quicklinks.map((quicklink) => (
+      {quicklinks.map((quicklink, index) => (
         <QuicklinkCard
           quicklink={quicklink}
           key={quicklink.id}
           onDelete={onDelete}
+          index={index}
         />
       ))}
     </div>

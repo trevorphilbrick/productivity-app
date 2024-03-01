@@ -1,6 +1,6 @@
 "use client";
 import { Card } from "../card";
-import { useState, useContext } from "react";
+import { useState, useContext, useRef } from "react";
 import { RxChevronDown, RxChevronUp } from "react-icons/rx";
 import ProgressPill from "./progressPill";
 import { deleteTask, updateStatus } from "@/lib/data";
@@ -13,6 +13,7 @@ import {
 import clsx from "clsx";
 import { Task } from "@/lib/types";
 import DeletePopover from "./confirmDeletePopover";
+import { useIsVisible } from "@/hooks/useIsVisible";
 
 const Priority = ({
   priority,
@@ -33,9 +34,23 @@ const Priority = ({
   }
 };
 
-function TaskCard({ task, key }: { task: Task; key: number }) {
+function TaskCard({
+  task,
+  key,
+  posIndex,
+}: {
+  task: Task;
+  key: number;
+  posIndex: number;
+}) {
   const { setTasks, tasks } = useContext(TaskContext);
   const [isExpanded, setIsExpanded] = useState(false);
+
+  console.log(posIndex, "posIndex");
+
+  const taskRef = useRef(null);
+
+  const isVisible = useIsVisible(taskRef);
 
   const handleNextStatus = (status: string) => {
     switch (status) {
@@ -69,7 +84,14 @@ function TaskCard({ task, key }: { task: Task; key: number }) {
 
   return (
     // card container div
-    <div className="p-4">
+    <div
+      style={{ transitionDelay: posIndex * 100 + "ms" }}
+      className={clsx(
+        "p-4 animate-all duration-1000",
+        isVisible ? "opacity-100" : "opacity-0"
+      )}
+      ref={taskRef}
+    >
       {/* collapsed content div */}
       <div key={key} className=" flex justify-between items-center ">
         {/* left container */}
