@@ -65,7 +65,7 @@ function NoteCard({
       // needed to add transition delay
       style={{ transitionDelay: (index * 100) / 2 + "ms" }}
       className={clsx(
-        "group px-2 mb-1 w-full md:w-1/2 lg:w-1/3 relative  transition-opacity  ",
+        "group px-2 mb-4 w-full md:w-1/2 lg:w-1/3 relative  transition-opacity duration-1000   ",
         isVisible ? "opacity-100" : "opacity-0"
       )}
       key={note.id}
