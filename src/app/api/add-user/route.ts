@@ -1,11 +1,6 @@
 import { sql } from "@vercel/postgres";
 import { NextResponse } from "next/server";
-import argon2 from "argon2";
-
-const hashPassword = async (password: string) => {
-  const hashedPassword = await argon2.hash(password);
-  return hashedPassword;
-};
+import { hashPassword } from "../utils";
 
 export async function POST(request: Request) {
   const body = await request.json();

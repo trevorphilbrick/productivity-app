@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -7,34 +8,42 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { addUser } from "@/lib/data";
+import { fetchUser } from "@/lib/data";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   username: z.string().min(2).max(50),
-  email: z.string().email(),
   password: z.string().min(6).max(50),
 });
 
 function Page() {
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
       username: "",
-      email: "",
       password: "",
     },
   });
 
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
     try {
-      await addUser(data);
+      setIsLoading(true);
+      const res = await fetchUser(data.username, data.password);
+      setIsLoading(false);
+      if (res) {
+        console.log("User is authenticated");
+        router.push("/dashboard");
+      }
+      return;
     } catch (error: any) {
+      setIsLoading(false);
       throw Error(error);
     }
   };
@@ -52,7 +61,7 @@ function Page() {
                 <FormItem>
                   <FormLabel>Username</FormLabel>
                   <FormControl>
-                    <Input {...field} />
+                    <Input type="text" {...field} />
                   </FormControl>
                 </FormItem>
               )}
@@ -70,7 +79,8 @@ function Page() {
                 </FormItem>
               )}
             />
-            <Button type="submit" className="w-full">
+
+            <Button type="submit" disabled={isLoading} className="w-full">
               Sign In
             </Button>
           </form>

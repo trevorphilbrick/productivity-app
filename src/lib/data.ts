@@ -235,4 +235,21 @@ export const addUser = async (user: any) => {
   return data;
 };
 
+export const fetchUser = async (username: string, password: string) => {
+  const data = await fetch(`${base_url}/api/sign-in`, {
+    method: "POST",
+    cache: "no-cache",
+    next: {
+      revalidate: 0,
+    },
+    body: JSON.stringify({ username, password }),
+  }).then((response) => {
+    return response.json();
+  });
+  // set token in local storage
+  localStorage.setItem("session", JSON.stringify(data));
+
+  return data;
+};
+
 //#endregion

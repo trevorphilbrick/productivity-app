@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function SignInOutButton() {
   return (
-    <Link href="/auth">
+    <Link href="/auth/signin">
       <Button>Sign in</Button>
     </Link>
   );

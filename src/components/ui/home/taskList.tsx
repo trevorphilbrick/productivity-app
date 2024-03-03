@@ -17,7 +17,7 @@ function TaskList() {
 
   // if there is no user session, take the user to sign-in
   if (!session) {
-    redirect("/api/auth/signin");
+    redirect("/auth/signin");
   }
 
   // safety check to only fetch if there is a user session

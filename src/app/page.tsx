@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
 import blackMobile from "../../public/mobile-black.png";
 import blackDesktop from "../../public/3-devices-black.png";
 import { getServerSession } from "next-auth";
@@ -22,7 +21,6 @@ export default async function Home() {
             From jotting down spontaneous ideas to managing complex projects,
             this is your go-to for staying organized and ahead of the curve.
           </p>
-          <Button className="w-full">Join Now</Button>
         </div>
         <Image src={blackMobile} alt="black mobile" className="md:hidden" />
         <Image
