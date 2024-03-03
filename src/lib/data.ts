@@ -1,10 +1,11 @@
 import { mockCurrentWeatherData } from "./mockData";
 
-const weatherKey = process.env.NEXT_PUBLIC_WEATHER_API_KEY;
-
 const base_url = process.env.NEXT_PUBLIC_IS_DEV
   ? "http://localhost:3000"
   : "https://productivity-app-six.vercel.app";
+
+// #region weather
+const weatherKey = process.env.NEXT_PUBLIC_WEATHER_API_KEY;
 
 export const fetchCurrentWeather = async (
   lat: number,
@@ -23,6 +24,8 @@ export const fetchCurrentWeather = async (
   });
   return data;
 };
+// #endregion
+// #region tasks
 
 export const fetchTasks = async (user_id: string) => {
   const data = await fetch(`${base_url}/api/get-todos?userId=${user_id}`, {
@@ -86,7 +89,8 @@ export const updateStatus = async (id: number, status: string) => {
   });
   return data;
 };
-
+// #endregion
+// #region quicklinks
 export const addQuicklink = async (quicklink: any) => {
   const { linkTitle: title, linkUrl, user_id: userId } = quicklink;
 
@@ -132,6 +136,8 @@ export const deleteQuicklink = async (id: number) => {
   });
   return data;
 };
+// #endregion
+//#region notes
 
 export const addNote = async (
   noteTitle: string,
@@ -209,3 +215,24 @@ export const deleteNote = async (id: number) => {
   });
   return data;
 };
+
+//#endregion
+//#region user
+export const addUser = async (user: any) => {
+  const { username, email, password } = user;
+
+  const data = await fetch(`${base_url}/api/add-user`, {
+    method: "POST",
+    body: JSON.stringify({ username, email, password }),
+    cache: "no-cache",
+    next: {
+      revalidate: 0,
+    },
+  }).then((response) => {
+    return response.json();
+  });
+
+  return data;
+};
+
+//#endregion
