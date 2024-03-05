@@ -10,20 +10,15 @@ import { Task } from "@/lib/types";
 import { textContent } from "@/lib/textContent";
 
 function TaskList() {
-  const { data: session } = useSession();
   const { tasks, setTasks } = useContext(TaskContext);
 
   const [loading, setLoading] = useState(true);
 
   // if there is no user session, take the user to sign-in
-  if (!session) {
-    redirect("/api/auth/signin");
-  }
 
   // safety check to only fetch if there is a user session
   useEffect(() => {
-    if (!session?.user?.name) return;
-    fetchTasks(session?.user?.name)
+    fetchTasks()
       .then((data) => {
         setTasks(data.tasks.rows.sort((a: any, b: any) => a.id - b.id));
       })

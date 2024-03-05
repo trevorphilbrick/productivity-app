@@ -1,10 +1,9 @@
-import { getServerSession } from "next-auth/next";
 import { redirect } from "next/navigation";
+import { validateRequest } from "@/lib/auth";
 
 async function Page() {
-  const session = await getServerSession();
-
-  if (!session) {
+  const { user } = await validateRequest();
+  if (!user) {
     redirect("/api/auth/signin");
   }
   redirect("/dashboard/tasks");

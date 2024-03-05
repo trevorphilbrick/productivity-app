@@ -25,11 +25,9 @@ import { useContext, useState } from "react";
 const formSchema = z.object({
   linkTitle: z.string().min(2).max(255),
   linkUrl: z.string().min(2).max(1000),
-  user_id: z.string(),
 });
 
 function AddQuicklinkForm() {
-  const { data: session } = useSession();
   const { setQuicklinks } = useContext(QuicklinkContext);
   const [isActive, setIsActive] = useState(true);
 
@@ -38,7 +36,6 @@ function AddQuicklinkForm() {
     defaultValues: {
       linkTitle: "",
       linkUrl: "",
-      user_id: session?.user?.name || "",
     },
   });
 

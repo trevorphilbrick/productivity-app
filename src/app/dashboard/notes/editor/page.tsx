@@ -48,7 +48,7 @@ function Page() {
         try {
           const {
             note: { rows },
-          } = await fetchNote(session?.user?.name || "", parseInt(noteId));
+          } = await fetchNote(parseInt(noteId));
 
           if (rows.length === 0) {
             return;
@@ -80,7 +80,7 @@ function Page() {
 
       setIsPosting(false);
     } else {
-      const res = await addNote(values.title, values.body, values.user_id);
+      const res = await addNote(values.title, values.body);
 
       if (res.status === 200) {
         form.reset();

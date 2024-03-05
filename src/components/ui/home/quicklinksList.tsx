@@ -7,13 +7,11 @@ import QuicklinkCard from "./quicklinkCard";
 import { Skeleton } from "../skeleton";
 
 function QuicklinksList() {
-  const { data: session } = useSession();
   const { quicklinks, setQuicklinks } = useContext(QuicklinkContext);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!session?.user?.name) return;
-    fetchQuicklinks(session?.user?.name)
+    fetchQuicklinks()
       .then((data) => {
         setQuicklinks(data.quicklinks.rows);
       })
@@ -22,8 +20,6 @@ function QuicklinksList() {
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps -- only run on mount
   }, []);
-
-  useEffect(() => {}, [quicklinks]);
 
   const onDelete = (id: number) => {
     deleteQuicklink(id).then((data) => {

@@ -1,7 +1,12 @@
+import { validateRequest } from "@/lib/auth";
 import { sql } from "@vercel/postgres";
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
+  const { user } = await validateRequest();
+  if (!user) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
   const { searchParams } = new URL(request.url);
   const id = searchParams.get("id");
 

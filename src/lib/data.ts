@@ -24,8 +24,8 @@ export const fetchCurrentWeather = async (
   return data;
 };
 
-export const fetchTasks = async (user_id: string) => {
-  const data = await fetch(`${base_url}/api/get-todos?userId=${user_id}`, {
+export const fetchTasks = async () => {
+  const data = await fetch(`${base_url}/api/get-todos`, {
     method: "GET",
     cache: "no-cache",
     next: {
@@ -38,7 +38,8 @@ export const fetchTasks = async (user_id: string) => {
 };
 
 export const addTask = async (task: any) => {
-  const { title, description, status, priority, user_id } = task;
+  console.log(task, "task");
+  const { title, description, status, priority } = task;
 
   const data = await fetch(
     `${base_url}/api/add-todo?title=${encodeURIComponent(
@@ -47,7 +48,7 @@ export const addTask = async (task: any) => {
       description
     )}&status=${encodeURIComponent(status)}&priority=${encodeURIComponent(
       priority
-    )}&user_id=${encodeURIComponent(user_id)}`,
+    )}`,
     {
       cache: "no-cache",
       next: {
@@ -88,14 +89,12 @@ export const updateStatus = async (id: number, status: string) => {
 };
 
 export const addQuicklink = async (quicklink: any) => {
-  const { linkTitle: title, linkUrl, user_id: userId } = quicklink;
+  const { linkTitle: title, linkUrl } = quicklink;
 
   const data = await fetch(
     `${base_url}/api/add-link?title=${encodeURIComponent(
       title
-    )}&linkUrl=${encodeURIComponent(linkUrl)}&userId=${encodeURIComponent(
-      userId
-    )}`,
+    )}&linkUrl=${encodeURIComponent(linkUrl)}`,
     {
       cache: "no-cache",
       next: {
@@ -108,8 +107,8 @@ export const addQuicklink = async (quicklink: any) => {
   return data;
 };
 
-export const fetchQuicklinks = async (user_id: string) => {
-  const data = await fetch(`${base_url}/api/get-links?userId=${user_id}`, {
+export const fetchQuicklinks = async () => {
+  const data = await fetch(`${base_url}/api/get-links`, {
     method: "GET",
     cache: "no-cache",
     next: {
@@ -133,18 +132,12 @@ export const deleteQuicklink = async (id: number) => {
   return data;
 };
 
-export const addNote = async (
-  noteTitle: string,
-  noteBody: string,
-  user_id: string
-) => {
+export const addNote = async (noteTitle: string, noteBody: string) => {
   const bodyData = {
     noteBody,
   };
   const data = await fetch(
-    `${base_url}/api/add-note?noteTitle=${encodeURIComponent(
-      noteTitle
-    )}&user_id=${user_id}`,
+    `${base_url}/api/add-note?noteTitle=${encodeURIComponent(noteTitle)}`,
     { method: "POST", body: JSON.stringify(bodyData) }
   );
 
@@ -169,8 +162,8 @@ export const updateNote = async (
   return data;
 };
 
-export const fetchNotes = async (user_id: string) => {
-  const data = await fetch(`${base_url}/api/get-notes?userId=${user_id}`, {
+export const fetchNotes = async () => {
+  const data = await fetch(`${base_url}/api/get-notes?`, {
     method: "GET",
     cache: "no-cache",
     next: {
@@ -182,17 +175,14 @@ export const fetchNotes = async (user_id: string) => {
   return data;
 };
 
-export const fetchNote = async (user_id: string, id: number) => {
-  const data = await fetch(
-    `${base_url}/api/get-note?userId=${user_id}&id=${id}`,
-    {
-      method: "GET",
-      cache: "no-cache",
-      next: {
-        revalidate: 0,
-      },
-    }
-  ).then((response) => {
+export const fetchNote = async (id: number) => {
+  const data = await fetch(`${base_url}/api/get-note?&id=${id}`, {
+    method: "GET",
+    cache: "no-cache",
+    next: {
+      revalidate: 0,
+    },
+  }).then((response) => {
     return response.json();
   });
   return data;
@@ -205,6 +195,43 @@ export const deleteNote = async (id: number) => {
       revalidate: 0,
     },
   }).then((response) => {
+    return response.json();
+  });
+  return data;
+};
+
+export const addUser = async (
+  userId: string,
+  username: string,
+  password: string
+) => {
+  const response = await fetch(`${base_url}/api/auth/add-user`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      userId,
+      username,
+      password,
+    }),
+  }).then((response) => {
+    return response.json();
+  });
+
+  return response;
+};
+
+export const getUser = async (username: string) => {
+  const data = await fetch(
+    `${base_url}/api/auth/get-user?username=${username}`,
+    {
+      method: "GET",
+      next: {
+        revalidate: 0,
+      },
+    }
+  ).then((response) => {
     return response.json();
   });
   return data;

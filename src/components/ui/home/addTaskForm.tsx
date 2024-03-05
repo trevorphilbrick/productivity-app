@@ -38,11 +38,9 @@ const formSchema = z.object({
   description: z.string().min(2).max(500),
   priority: z.enum(["low", "medium", "high"]),
   status: z.enum(["Pending", "In Progress", "Completed"]),
-  user_id: z.string(),
 });
 
 function AddTaskForm() {
-  const { data: session } = useSession();
   const [isActive, setIsActive] = useState(true);
   const { setTasks } = useContext(TaskContext);
   const form = useForm<z.infer<typeof formSchema>>({
@@ -52,7 +50,6 @@ function AddTaskForm() {
       description: "",
       priority: "low",
       status: "Pending",
-      user_id: session?.user?.name || "",
     },
   });
 
