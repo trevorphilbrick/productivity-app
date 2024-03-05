@@ -2,18 +2,12 @@
 import { Sheet, SheetTrigger } from "@/components/ui/sheet";
 import QuicklinkProvider from "@/context/quicklinksContext";
 import { RxPlus } from "react-icons/rx";
-import { useSession } from "next-auth/react";
-import { redirect } from "next/navigation";
+
 import AddQuicklinkForm from "@/components/ui/home/addQuicklinkForm";
 import QuicklinksList from "@/components/ui/home/quicklinksList";
 import { textContent } from "@/lib/textContent";
 
 function Page() {
-  const { data: session } = useSession();
-
-  if (!session) {
-    redirect("/api/auth/signin");
-  }
   return (
     <QuicklinkProvider>
       <Sheet>

@@ -1,10 +1,15 @@
+import { validateRequest } from "@/lib/auth";
 import { sql } from "@vercel/postgres";
 import { NextResponse } from "next/server";
 
 export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url);
-  const user_id = searchParams.get("userId");
+  const { user } = await validateRequest();
 
-  const notes = await sql`SELECT * FROM notes WHERE User_id = ${user_id};`;
+  if (!user) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const notes =
+    await sql`SELECT * FROM notes WHERE User_id = ${user?.username};`;
   return NextResponse.json({ notes }, { status: 200 });
 }

@@ -2,17 +2,14 @@
 import { fetchNote } from "@/lib/data";
 import { useEffect, useState } from "react";
 import Markdown from "react-markdown";
-import { useSession } from "next-auth/react";
 import { Note } from "@/lib/types";
 import styles from "./markdown.module.css";
 
 function Page({ searchParams }: { searchParams: { id: number } }) {
-  const session = useSession();
   const [data, setData] = useState<Note>();
 
   useEffect(() => {
-    if (!session.data?.user?.name) return;
-    fetchNote(session.data?.user?.name, searchParams.id).then((res) => {
+    fetchNote(searchParams.id).then((res) => {
       setData(res.note.rows[0]);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps -- only run on mount

@@ -1,7 +1,6 @@
 "use client";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
-import { useSession } from "next-auth/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { set, useForm } from "react-hook-form";
 import { z } from "zod";
@@ -21,13 +20,11 @@ import { useSearchParams } from "next/navigation";
 const formSchema = z.object({
   title: z.string().min(2).max(50),
   body: z.string().min(2),
-  user_id: z.string(),
 });
 
 function Page() {
   const params = useSearchParams();
   const noteId = params.get("id");
-  const { data: session } = useSession();
   const [isPosting, setIsPosting] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
@@ -37,7 +34,6 @@ function Page() {
     defaultValues: {
       title: "",
       body: "",
-      user_id: session?.user?.name || "",
     },
   });
   useEffect(() => {
@@ -48,7 +44,7 @@ function Page() {
         try {
           const {
             note: { rows },
-          } = await fetchNote(session?.user?.name || "", parseInt(noteId));
+          } = await fetchNote(parseInt(noteId));
 
           if (rows.length === 0) {
             return;
@@ -80,7 +76,7 @@ function Page() {
 
       setIsPosting(false);
     } else {
-      const res = await addNote(values.title, values.body, values.user_id);
+      const res = await addNote(values.title, values.body);
 
       if (res.status === 200) {
         form.reset();

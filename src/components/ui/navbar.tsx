@@ -1,5 +1,4 @@
 "use client";
-import { useSession } from "next-auth/react";
 import SignInOutButton from "./signInOutButton";
 import Link from "next/link";
 import Image from "next/image";
@@ -8,7 +7,6 @@ import zenrichLogoDark from "../../../public/zenrich-logo-dark.svg";
 import { useTheme } from "next-themes";
 
 function Navbar() {
-  const { data: session } = useSession();
   const { resolvedTheme } = useTheme();
 
   return (
@@ -26,9 +24,6 @@ function Navbar() {
         </Link>
       </div>
       <div className="flex items-center">
-        {session && (
-          <p className="mr-4 hidden md:inline">{session.user?.name}</p>
-        )}
         <SignInOutButton />
       </div>
     </nav>

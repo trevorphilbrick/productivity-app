@@ -17,7 +17,6 @@ import { Button } from "@/components/ui/button";
 import { z } from "zod";
 import { set, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useSession } from "next-auth/react";
 import { addQuicklink } from "@/lib/data";
 import { QuicklinkContext } from "@/context/quicklinksContext";
 import { useContext, useState } from "react";
@@ -25,11 +24,9 @@ import { useContext, useState } from "react";
 const formSchema = z.object({
   linkTitle: z.string().min(2).max(255),
   linkUrl: z.string().min(2).max(1000),
-  user_id: z.string(),
 });
 
 function AddQuicklinkForm() {
-  const { data: session } = useSession();
   const { setQuicklinks } = useContext(QuicklinkContext);
   const [isActive, setIsActive] = useState(true);
 
@@ -38,7 +35,6 @@ function AddQuicklinkForm() {
     defaultValues: {
       linkTitle: "",
       linkUrl: "",
-      user_id: session?.user?.name || "",
     },
   });
 

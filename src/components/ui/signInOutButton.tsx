@@ -1,12 +1,26 @@
 "use client";
-import { useSession, signIn, signOut } from "next-auth/react";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function SignInOutButton() {
-  const { data: session } = useSession();
+  const pathname = usePathname();
 
-  if (session) {
-    return <Button onClick={() => signOut()}>Sign out</Button>;
+  if (pathname === "/signin") {
+    return;
   }
-  return <Button onClick={() => signIn()}>Sign in</Button>;
+
+  if (pathname.includes("dashboard")) {
+    return (
+      <Link href="/api/auth/sign-out">
+        <Button>Sign Out</Button>
+      </Link>
+    );
+  }
+
+  return (
+    <Link href="/signin">
+      <Button>Sign In</Button>
+    </Link>
+  );
 }
