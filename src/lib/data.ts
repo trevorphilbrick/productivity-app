@@ -38,7 +38,6 @@ export const fetchTasks = async () => {
 };
 
 export const addTask = async (task: any) => {
-  console.log(task, "task");
   const { title, description, status, priority } = task;
 
   const data = await fetch(
