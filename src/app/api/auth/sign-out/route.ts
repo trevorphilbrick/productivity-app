@@ -1,9 +1,11 @@
 import { logout } from "@/lib/auth";
+import { NextResponse } from "next/server";
 
-export async function GET(request: Request) {
+export async function GET() {
   await logout();
-  return {
-    status: 200,
-    body: { message: "Logged out" },
-  };
+  return NextResponse.json(
+    { message: "Logged out" },
+
+    { status: 200 }
+  );
 }
