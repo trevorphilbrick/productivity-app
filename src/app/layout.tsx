@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { getServerSession } from "next-auth";
-import SessionProvider from "@/components/sessionProvider";
+
 import { ThemeProvider } from "@/components/themeProvider";
 import Navbar from "@/components/ui/navbar";
 import { flags } from "@/lib/flags";
@@ -48,8 +47,6 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const session = await getServerSession();
-
   return (
     <html lang="en">
       <body className={inter.className}>
@@ -60,10 +57,8 @@ export default async function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <SessionProvider session={session}>
-              <Navbar />
-              {children}
-            </SessionProvider>
+            <Navbar />
+            {children}
           </ThemeProvider>
         </CookiesProvider>
       </body>

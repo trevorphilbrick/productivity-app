@@ -6,6 +6,10 @@ import { usePathname } from "next/navigation";
 export default function SignInOutButton() {
   const pathname = usePathname();
 
+  if (pathname === "/signin") {
+    return;
+  }
+
   if (pathname.includes("dashboard")) {
     return (
       <Link href="/api/auth/sign-out">

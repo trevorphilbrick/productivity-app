@@ -31,7 +31,6 @@ import { ReactElement, JSXElementConstructor } from "react";
 import { addTask } from "@/lib/data";
 import { TaskContext } from "@/context/taskContext";
 import { useContext, useState } from "react";
-import { useSession } from "next-auth/react";
 
 const formSchema = z.object({
   title: z.string().min(2).max(50),

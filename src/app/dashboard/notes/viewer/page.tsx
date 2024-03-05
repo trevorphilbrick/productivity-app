@@ -2,7 +2,6 @@
 import { fetchNote } from "@/lib/data";
 import { useEffect, useState } from "react";
 import Markdown from "react-markdown";
-import { useSession } from "next-auth/react";
 import { Note } from "@/lib/types";
 import styles from "./markdown.module.css";
 

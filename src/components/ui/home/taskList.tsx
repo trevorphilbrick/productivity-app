@@ -3,7 +3,6 @@ import TaskCard from "./taskCard";
 import { fetchTasks } from "@/lib/data";
 import { useContext, useState, useEffect } from "react";
 import { TaskContext } from "@/context/taskContext";
-import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import TaskListSkeleton from "./loaders/taskListSkeleton";
 import { Task } from "@/lib/types";

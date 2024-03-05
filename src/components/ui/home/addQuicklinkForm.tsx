@@ -17,7 +17,6 @@ import { Button } from "@/components/ui/button";
 import { z } from "zod";
 import { set, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useSession } from "next-auth/react";
 import { addQuicklink } from "@/lib/data";
 import { QuicklinkContext } from "@/context/quicklinksContext";
 import { useContext, useState } from "react";

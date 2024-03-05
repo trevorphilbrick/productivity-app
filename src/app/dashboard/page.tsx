@@ -4,7 +4,7 @@ import { validateRequest } from "@/lib/auth";
 async function Page() {
   const { user } = await validateRequest();
   if (!user) {
-    redirect("/api/auth/signin");
+    redirect("/signin");
   }
   redirect("/dashboard/tasks");
 }

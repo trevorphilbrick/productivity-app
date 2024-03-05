@@ -2,7 +2,6 @@
 import { useContext, useEffect, useState } from "react";
 import { QuicklinkContext } from "@/context/quicklinksContext";
 import { fetchQuicklinks, deleteQuicklink } from "@/lib/data";
-import { useSession } from "next-auth/react";
 import QuicklinkCard from "./quicklinkCard";
 import { Skeleton } from "../skeleton";
 
