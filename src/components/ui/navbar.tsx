@@ -30,8 +30,6 @@ function Navbar() {
   const pathname = usePathname();
   const session = useSession();
 
-  console.log(session);
-
   return (
     <nav className="w-full mb-8 flex justify-between px-4 md:px-8 py-4 items-center">
       <div className="flex items-center">
