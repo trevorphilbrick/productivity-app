@@ -30,6 +30,8 @@ function Navbar() {
   const pathname = usePathname();
   const session = useSession();
 
+  console.log(session);
+
   return (
     <nav className="w-full mb-8 flex justify-between px-4 md:px-8 py-4 items-center">
       <div className="flex items-center">
@@ -50,9 +52,11 @@ function Navbar() {
       {pathname.includes("/dashboard") && (
         <Sheet>
           <div className=" flex items-center">
-            <p className="mr-4">{session && session.user.username}</p>
+            <p className="mr-4 hidden md:inline">
+              {session && session.user.username}
+            </p>
             <SheetTrigger>
-              <RxGear className="text-xl" />
+              <RxGear className="text-xl hover:rotate-12 hover:scale-110 active:rotate-180 active:scale-90 transition-all" />
             </SheetTrigger>
           </div>
           <SheetContent className="flex flex-col justify-between">
