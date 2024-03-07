@@ -7,6 +7,7 @@ import clsx from "clsx";
 import Link from "next/link";
 import { useIsVisible } from "@/hooks/useIsVisible";
 import { useRef } from "react";
+import DeletePopover from "./confirmDeletePopover";
 
 const FloatingActions = ({
   onDelete,
@@ -17,7 +18,7 @@ const FloatingActions = ({
 }) => {
   return (
     <div className="flex justify-between w-24 bg-blue-500 py-2 px-3 rounded-full md:opacity-0 md:group-hover:opacity-100 transition-all ">
-      <div className="flex-1 flex justify-center">
+      <div className="flex-1 flex justify-center text-white hover:scale-110 hover:text-slate-300 active:scale-90 active:text-slate-500 transition-all">
         <Link
           href={{
             pathname: "/dashboard/notes/viewer",
@@ -27,7 +28,7 @@ const FloatingActions = ({
           <RxReader />
         </Link>
       </div>
-      <div className="flex-1 flex justify-center">
+      <div className="flex-1 flex justify-center text-white hover:scale-110 hover:text-slate-300 active:scale-90 active:text-slate-500 transition-all">
         <Link
           href={{
             pathname: "/dashboard/notes/editor",
@@ -37,12 +38,12 @@ const FloatingActions = ({
           <RxPencil2 />
         </Link>
       </div>
-      <div
-        className="flex-1 flex justify-center cursor-pointer"
-        onClick={() => onDelete(id)}
-      >
-        <RxCross2 />
-      </div>
+
+      <DeletePopover
+        onDelete={() => onDelete(id)}
+        className="flex-1 flex justify-center cursor-pointer text-white hover:scale-110 active:scale-90 transition-all"
+        hoverColor="hover:text-slate-300 active:text-slate-500"
+      />
     </div>
   );
 };
