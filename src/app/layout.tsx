@@ -6,6 +6,8 @@ import { ThemeProvider } from "@/components/themeProvider";
 import Navbar from "@/components/ui/navbar";
 import { flags } from "@/lib/flags";
 import { CookiesProvider } from "next-client-cookies/server";
+import { SessionProvider } from "@/context/sessionContext";
+import { validateRequest } from "@/lib/auth";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -47,20 +49,23 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await validateRequest();
   return (
     <html lang="en">
       <body className={inter.className}>
-        <CookiesProvider>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme={flags.defaultTheme}
-            enableSystem
-            disableTransitionOnChange
-          >
-            <Navbar />
-            {children}
-          </ThemeProvider>
-        </CookiesProvider>
+        <SessionProvider value={session}>
+          <CookiesProvider>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme={flags.defaultTheme}
+              enableSystem
+              disableTransitionOnChange
+            >
+              <Navbar />
+              {children}
+            </ThemeProvider>
+          </CookiesProvider>
+        </SessionProvider>
       </body>
     </html>
   );
