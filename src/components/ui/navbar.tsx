@@ -50,7 +50,7 @@ function Navbar() {
       {pathname.includes("/dashboard") && (
         <Sheet>
           <div className=" flex items-center">
-            <p className="mr-4">{session && session.user.username}</p>
+            <p className="mr-4">{session?.user?.username}</p>
             <SheetTrigger>
               <RxGear className="text-xl" />
             </SheetTrigger>
