@@ -1,11 +1,14 @@
-import { Lucia } from "lucia";
+import { Lucia, generateId, Session, User } from "lucia";
 import { adapter } from "./adapter";
 import { cookies } from "next/headers";
 import { cache } from "react";
 import { redirect } from "next/navigation";
-
-import type { Session, User } from "lucia";
+import { TimeSpan, createDate } from "oslo";
 import { ActionResult } from "next/dist/server/app-render/types";
+
+interface DatabaseUserAttributes {
+  username: string;
+}
 
 export const lucia = new Lucia(adapter, {
   sessionCookie: {
@@ -27,10 +30,6 @@ declare module "lucia" {
     Lucia: typeof lucia;
     DatabaseUserAttributes: DatabaseUserAttributes;
   }
-}
-
-interface DatabaseUserAttributes {
-  username: string;
 }
 
 export const validateRequest = cache(
@@ -87,4 +86,22 @@ export async function logout(): Promise<ActionResult> {
     sessionCookie.attributes
   );
   return redirect("/signin");
+}
+
+export async function createPasswordResetToken(
+  userId: string
+): Promise<string> {
+  // optionally invalidate all existing tokens
+  const tokenId = generateId(40);
+  await fetch("/api/add-password-reset-token", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      id: tokenId,
+      expiresAt: createDate(new TimeSpan(1, "h")),
+    }),
+  });
+  return tokenId;
 }
