@@ -7,6 +7,7 @@ import { flags } from "@/lib/flags";
 import { CookiesProvider } from "next-client-cookies/server";
 import { SessionProvider } from "@/context/sessionContext";
 import { validateRequest } from "@/lib/auth";
+import { Toaster } from "sonner";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -62,6 +63,7 @@ export default async function RootLayout({
             >
               <Navbar />
               {children}
+              <Toaster />
             </ThemeProvider>
           </CookiesProvider>
         </SessionProvider>
