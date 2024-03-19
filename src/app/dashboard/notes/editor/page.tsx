@@ -2,7 +2,7 @@
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { set, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { z } from "zod";
 import {
   Form,
@@ -15,7 +15,8 @@ import { Button } from "@/components/ui/button";
 import { addNote, fetchNote, updateNote } from "@/lib/data";
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
+import { toast } from "sonner";
 
 const formSchema = z.object({
   title: z.string().min(2).max(50),
@@ -24,6 +25,7 @@ const formSchema = z.object({
 
 function Page() {
   const params = useSearchParams();
+  const router = useRouter();
   const noteId = params.get("id");
   const [isPosting, setIsPosting] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -71,15 +73,16 @@ function Page() {
       const res = await updateNote(values.title, values.body, parseInt(noteId));
 
       if (res.status === 200) {
-        form.reset();
+        toast.success("Note updated successfully!");
+        router.push("/dashboard/notes");
       }
-
       setIsPosting(false);
     } else {
       const res = await addNote(values.title, values.body);
 
       if (res.status === 200) {
-        form.reset();
+        toast.success("Note added successfully!");
+        router.push("/dashboard/notes");
       }
 
       setIsPosting(false);
