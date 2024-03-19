@@ -14,6 +14,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const formSchema = z.object({
   username: z.string().min(2).max(50),
@@ -22,7 +23,6 @@ const formSchema = z.object({
 
 function SignInForm({ login }: { login: (data: any) => Promise<any> }) {
   const [isLoading, setIsLoading] = useState(false);
-  const router = useRouter();
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -59,7 +59,6 @@ function SignInForm({ login }: { login: (data: any) => Promise<any> }) {
               </FormItem>
             )}
           />
-
           <FormField
             control={form.control}
             name="password"
@@ -72,10 +71,16 @@ function SignInForm({ login }: { login: (data: any) => Promise<any> }) {
               </FormItem>
             )}
           />
-
           <Button type="submit" disabled={isLoading} className="w-full">
             Sign In
           </Button>
+          <p className="text-sm">
+            Don&apos;t have an account? Click{" "}
+            <Link href="/signup" className="font-bold ">
+              Here
+            </Link>{" "}
+            to sign up!
+          </p>
         </form>
       </Form>
     </Card>

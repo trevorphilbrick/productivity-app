@@ -12,6 +12,7 @@ import { Card } from "@/components/ui/card";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import Link from "next/link";
 
 export const formSchema = z.object({
   username: z.string().min(2).max(50),
@@ -65,6 +66,13 @@ export default function SignUpForm({ signup }: any) {
           <Button type="submit" className="w-full">
             Create Account
           </Button>
+          <p className="text-sm">
+            Already have an account? Click{" "}
+            <Link href="/signin" className="font-bold ">
+              Here
+            </Link>{" "}
+            to sign in!
+          </p>
         </form>
       </Form>
     </Card>
