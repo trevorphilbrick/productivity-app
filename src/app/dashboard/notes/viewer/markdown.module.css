@@ -9,3 +9,8 @@
   list-style-position: inside;
   margin-top: 1em;
 }
+
+.markdown a {
+  color: #5aaaff;
+  text-decoration: underline;
+}
