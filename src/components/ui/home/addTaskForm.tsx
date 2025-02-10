@@ -34,7 +34,7 @@ import { useContext, useState } from "react";
 
 const formSchema = z.object({
   title: z.string().min(2).max(50),
-  description: z.string().min(2).max(500),
+  description: z.string().min(2).max(500).optional().or(z.literal("")),
   priority: z.enum(["low", "medium", "high"]),
   status: z.enum(["Pending", "In Progress", "Completed"]),
 });
