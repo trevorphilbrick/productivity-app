@@ -12,17 +12,16 @@ function Layout({
   const pathname = usePathname();
   return (
     <div className="mb-4">
-      <div className="flex  px-4 justify-between items-center w-screen md:w-auto ">
-        <h1 className="font-semibold text-lg mb-4">Notes</h1>
+      <div className="flex justify-between items-center py-3 px-4 mb-4 bg-[url('https://5ftd8mwqickudvmi.public.blob.vercel-storage.com/Gradient-4kKNDqrDamDqgIp47BgNd54TLgJV9T.png')] bg-center bg-cover rounded-sm text-white shadow-md dark:shadow-neutral-800  shadow-neutral-200 ">
+        <h1 className="font-semibold text-lg">Notes</h1>
+
         {pathname === "/dashboard/notes" && (
-          <Link href="/dashboard/notes/editor">
-            <Button
-              variant="ghost"
-              className="flex items-center text-sm p-0 hover:bg-transparent font-normal"
-            >
-              add
-              <RxPlus className="ml-1" />
-            </Button>
+          <Link
+            href="/dashboard/notes/editor"
+            className="flex items-center text-sm"
+          >
+            add
+            <RxPlus className="ml-1" />
           </Link>
         )}
       </div>

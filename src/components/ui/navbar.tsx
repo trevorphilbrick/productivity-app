@@ -40,8 +40,15 @@ function Navbar() {
             alt="zenrich logo"
           />
         </Link>
-        <Link href="/dashboard">
-          <p className="font-semibold">Dashboard</p>
+
+        <Link href="/dashboard/tasks" className="mr-4">
+          <p className="font-semibold">Tasks</p>
+        </Link>
+        <Link href="/dashboard/quicklinks" className="mr-4">
+          <p className="font-semibold">Quick Links</p>
+        </Link>
+        <Link href="/dashboard/notes" className="mr-4">
+          <p className="font-semibold">Notes</p>
         </Link>
       </div>
       <div className="flex items-center">
