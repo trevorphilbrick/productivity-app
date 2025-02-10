@@ -1,11 +1,12 @@
 "use client";
 import { fetchNote } from "@/lib/data";
-import { useEffect, useState } from "react";
+import { useEffect, useState, use } from "react";
 import Markdown from "react-markdown";
 import { Note } from "@/lib/types";
 import styles from "./markdown.module.css";
 
-function Page({ searchParams }: { searchParams: { id: number } }) {
+function Page(props: { searchParams: Promise<{ id: number }> }) {
+  const searchParams = use(props.searchParams);
   const [data, setData] = useState<Note>();
 
   useEffect(() => {
