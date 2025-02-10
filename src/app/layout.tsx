@@ -5,7 +5,6 @@ import { ThemeProvider } from "@/components/themeProvider";
 import Navbar from "@/components/ui/navbar";
 import { flags } from "@/lib/flags";
 import { CookiesProvider } from "next-client-cookies/server";
-import { SessionProvider } from "@/context/sessionContext";
 import { validateRequest } from "@/lib/auth";
 import { Toaster } from "sonner";
 
@@ -53,20 +52,18 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <SessionProvider value={session}>
-          <CookiesProvider>
-            <ThemeProvider
-              attribute="class"
-              defaultTheme={flags.defaultTheme}
-              enableSystem
-              disableTransitionOnChange
-            >
-              <Navbar />
-              {children}
-              <Toaster />
-            </ThemeProvider>
-          </CookiesProvider>
-        </SessionProvider>
+        <CookiesProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme={flags.defaultTheme}
+            enableSystem
+            disableTransitionOnChange
+          >
+            <Navbar />
+            {children}
+            <Toaster />
+          </ThemeProvider>
+        </CookiesProvider>
       </body>
     </html>
   );
