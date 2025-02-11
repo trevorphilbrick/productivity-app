@@ -25,7 +25,7 @@ import { Label } from "@radix-ui/react-label";
 import { usePathname } from "next/navigation";
 
 function Navbar() {
-  const { resolvedTheme, setTheme } = useTheme();
+  const { setTheme } = useTheme();
   const pathname = usePathname();
 
   return (
