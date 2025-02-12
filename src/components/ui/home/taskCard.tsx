@@ -14,6 +14,7 @@ import clsx from "clsx";
 import { Task } from "@/lib/types";
 import DeletePopover from "./confirmDeletePopover";
 import { useIsVisible } from "@/hooks/useIsVisible";
+import { Button } from "../button";
 
 const Priority = ({
   priority,
@@ -85,7 +86,7 @@ function TaskCard({
     <div
       style={{ transitionDelay: posIndex * 100 + "ms" }}
       className={clsx(
-        "p-4 animate-all duration-1000",
+        "p-4 mb-4  animate-all duration-1000 shadow-md dark:shadow-neutral-800 shadow-neutral-200 rounded-md",
         isVisible ? "opacity-100" : "opacity-0"
       )}
       ref={taskRef}
@@ -112,17 +113,20 @@ function TaskCard({
             handleNextStatus={handleNextStatus}
             className="mr-2"
           />
-          <button
+
+          <Button
+            disabled={!task.description}
+            variant="ghost"
             onClick={() => {
               setIsExpanded(!isExpanded);
             }}
             className={clsx(
-              "mr-2 transition-all hover:text-slate-500 text-lg",
+              "mr-2 transition-all hover:text-slate-500 text-lg p-0 h-4",
               isExpanded && "rotate-180"
             )}
           >
             <RxChevronDown />
-          </button>
+          </Button>
           <DeletePopover onDelete={handleDelete} />
         </div>
       </div>

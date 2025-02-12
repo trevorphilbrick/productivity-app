@@ -2,9 +2,9 @@
 import SignInOutButton from "./signInOutButton";
 import Link from "next/link";
 import Image from "next/image";
-import zenrichLogo from "../../../public/zenrich-logo.svg";
-import zenrichLogoDark from "../../../public/zenrich-logo-dark.svg";
+import zenrichLogo from "../../../public/icon-192x192.png";
 import { useTheme } from "next-themes";
+
 import {
   Sheet,
   SheetContent,
@@ -23,32 +23,16 @@ import {
 } from "@/components/ui/select";
 import { Label } from "@radix-ui/react-label";
 import { usePathname } from "next/navigation";
-import { useSession } from "@/context/sessionContext";
 
 function Navbar() {
-  const { resolvedTheme, setTheme } = useTheme();
+  const { setTheme } = useTheme();
   const pathname = usePathname();
-  const session = useSession();
 
   return (
     <nav className="w-full mb-8 flex justify-between px-4 md:px-8 py-4 items-center">
       <div className="flex items-center">
         <Link href="/">
-          <Image
-            src={resolvedTheme === "dark" ? zenrichLogoDark : zenrichLogo}
-            className="w-10 mr-4"
-            alt="zenrich logo"
-          />
-        </Link>
-
-        <Link href="/dashboard/tasks" className="mr-4">
-          <p className="font-semibold">Tasks</p>
-        </Link>
-        <Link href="/dashboard/quicklinks" className="mr-4">
-          <p className="font-semibold">Quick Links</p>
-        </Link>
-        <Link href="/dashboard/notes" className="mr-4">
-          <p className="font-semibold">Notes</p>
+          <Image src={zenrichLogo} className="w-10 mr-4" alt="zenrich logo" />
         </Link>
       </div>
       <div className="flex items-center">
@@ -57,7 +41,7 @@ function Navbar() {
       {pathname.includes("/dashboard") && (
         <Sheet>
           <div className=" flex items-center">
-            <p className="mr-4 hidden md:inline">{session?.user?.username}</p>
+            <p className="mr-4 hidden md:inline">TODO: username</p>
             <SheetTrigger>
               <RxGear className="text-xl hover:rotate-12 hover:scale-110 active:rotate-180 active:scale-90 transition-all" />
             </SheetTrigger>
