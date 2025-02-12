@@ -12,7 +12,7 @@ export default async function Home() {
   }
   return (
     <main className="flex flex-col items-center text-wrap">
-      <div className="flex flex-col md:flex-row w-full md:mx-8 max-w-screen-xl px-4 ">
+      {/* <div className="flex flex-col md:flex-row w-full md:mx-8 max-w-screen-xl px-4 ">
         <div className=" mb-4 md:w-96 md:mb-0 ">
           <h1 className=" text-5xl md:text-6xl mb-4">
             Unlock Your Productivity Powerhouse!
@@ -29,6 +29,11 @@ export default async function Home() {
           alt="black desktop"
           className="hidden md:block"
         />
+      </div> */}
+      <div className="bg-[url(https://5ftd8mwqickudvmi.public.blob.vercel-storage.com/Gradient-4kKNDqrDamDqgIp47BgNd54TLgJV9T.png)] bg-cover bg-center bg-no-repeat  mx-8 rounded-md">
+        <h1 className=" text-5xl md:text-6xl lg:text-7xl text-center my-16 font-semibold lg:mx-24">
+          Unlock A Productivity Powerhouse
+        </h1>
       </div>
     </main>
   );
