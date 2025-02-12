@@ -4,21 +4,11 @@ const useGetFavicon = (url: string) => {
       const domain = new URL(url).hostname;
       return domain.replace(/^www\./, ""); // Remove 'www.' if present
     } catch (error) {
-      console.error("Invalid URL:", error);
       return null;
     }
   }
-  const getFavicon = async () => {
-    const domain = getDomainName(url);
-    console.log(domain);
-    const res = await fetch(
-      `https://www.faviconextractor.com/favicon/${domain}`
-    );
-    const data = await res.json();
-    return data;
-  };
 
-  return { getFavicon, getDomainName };
+  return { getDomainName };
 };
 
 export default useGetFavicon;

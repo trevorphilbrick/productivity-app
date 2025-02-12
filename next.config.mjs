@@ -8,7 +8,13 @@ const withPWA = withPWAInit({
 
 const nextConfig = {
   images: {
-    domains: ["openweathermap.org"],
+    domains: ["openweathermap.org", "www.faviconextractor.com"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "www.faviconextractor.com",
+      },
+    ],
   },
   webpack: (config) => {
     config.externals.push("@node-rs/argon2", "@node-rs/bcrypt");
