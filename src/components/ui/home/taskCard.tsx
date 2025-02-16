@@ -86,7 +86,7 @@ function TaskCard({
     <div
       style={{ transitionDelay: posIndex * 100 + "ms" }}
       className={clsx(
-        "p-4 mb-4  animate-all duration-1000 shadow-md dark:shadow-neutral-800 shadow-neutral-200 rounded-md",
+        "p-4 mb-4  animate-all duration-1000 shadow-md dark:shadow-neutral-800 shadow-neutral-200 rounded-md dark:bg-zinc-900",
         isVisible ? "opacity-100" : "opacity-0"
       )}
       ref={taskRef}
