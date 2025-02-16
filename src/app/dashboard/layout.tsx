@@ -14,7 +14,7 @@ function layout({
       <div className="flex flex-col items-center md:items-start md:flex-row ">
         {flags.shouldShowEvents && <Events />}
 
-        <div className="flex-1 w-full">{children}</div>
+        <div className=" w-full">{children}</div>
         {flags.shouldShowWeather && <Weather />}
       </div>
     </div>
