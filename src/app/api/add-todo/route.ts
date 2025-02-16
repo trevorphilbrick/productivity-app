@@ -26,24 +26,3 @@ export async function GET(request: Request) {
   const tasks = await sql`SELECT * FROM todos;`;
   return NextResponse.json({ tasks }, { status: 200 });
 }
-
-// [
-//   {
-//     "title": "Allow No Description On Tasks",
-//     "description": "Currently, the add task section requires a description. Make it possible to leave blank. ",
-//     "status": "Pending",
-//     "priority": "low",
-//     "id": 60,
-//     "user_id": null,
-//     "userid": "trevorphilbrick"
-//   },
-//   {
-//     "title": "Change sheet appearance ",
-//     "description": "Update sheet appearance to match the new color scheme/ design",
-//     "status": "Pending",
-//     "priority": "high",
-//     "id": 74,
-//     "user_id": null,
-//     "userid": "trevorphilbrick"
-//   }
-// ]

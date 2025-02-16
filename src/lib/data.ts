@@ -27,7 +27,7 @@ export const fetchCurrentWeather = async (
 export const fetchTasks = async () => {
   const data = await fetch(`${base_url}/api/get-todos`, {
     method: "GET",
-    cache: "no-cache",
+    cache: "force-cache",
     next: {
       revalidate: 0,
     },
@@ -49,7 +49,6 @@ export const addTask = async (task: any) => {
       priority
     )}`,
     {
-      cache: "no-cache",
       next: {
         revalidate: 0,
       },
